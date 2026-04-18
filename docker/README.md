@@ -47,3 +47,23 @@ Data is in Docker volumes. Either:
 - `docker compose logs -f caddy` — look for ACME / certificate errors.
 - Ensure **no other process** binds ports 80/443 on the host.
 - Let’s Encrypt must reach your server on **port 80** from the internet for the default HTTP challenge.
+
+## 502 Bad Gateway from Caddy (`connection refused` to :8000)
+
+Frappe’s Gunicorn defaults to **127.0.0.1:8000** inside the container, so **Caddy cannot connect** from another container. `init.sh` sets `bind_address` to **0.0.0.0** in `sites/common_site_config.json`.
+
+**If you created the bench before that fix**, apply once and restart Frappe:
+
+```bash
+docker compose exec frappe bash -lc 'cd ~/frappe-bench && python3 <<PY
+import json, pathlib
+p = pathlib.Path("sites/common_site_config.json")
+cfg = json.loads(p.read_text()) if p.exists() else {}
+cfg["bind_address"] = "0.0.0.0"
+p.write_text(json.dumps(cfg, indent=2) + "\n")
+print("OK:", p)
+PY
+bench restart'
+```
+
+Or recreate the stack after `git pull` so `init.sh` runs the helper (existing volumes keep DB; only config file changes).
