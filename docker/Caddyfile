@@ -1,0 +1,16 @@
+# TLS: Caddy obtains free certificates from Let's Encrypt automatically when
+# DOMAIN is a public hostname and ports 80/443 reach this host from the internet.
+# Copy .env.example to .env and set DOMAIN + SITE_NAME (usually the same value).
+
+{$DOMAIN:localhost} {
+	encode gzip zstd
+
+	# Frappe Socket.IO (realtime)
+	handle /socket.io* {
+		reverse_proxy frappe:9000
+	}
+
+	handle {
+		reverse_proxy frappe:8000
+	}
+}

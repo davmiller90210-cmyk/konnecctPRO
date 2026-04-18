@@ -159,29 +159,20 @@ The script will set up a production-ready instance of Konnecct with all the nece
 
 **Note:** You'll find Konnecct's frontend inside `frappe-bench/apps/crm/frontend`
 
-### Docker
+### Docker (with free HTTPS via Caddy + Let’s Encrypt)
 
-You need Docker, docker-compose and git setup on your machine. Refer [Docker documentation](https://docs.docker.com/). After that, follow below steps:
+You need Docker and Docker Compose. See [docker/README.md](docker/README.md) for full detail.
 
-**Step 1**: Setup folder and download the required files
+From a clone of this repo:
 
-    mkdir frappe-crm
-    cd frappe-crm
+```bash
+cd path/to/konnecctPRO/docker
+cp .env.example .env
+# Set DOMAIN and SITE_NAME to your real hostname (e.g. app.konnecct.com). DNS must point here first.
+docker compose up -d
+```
 
-    # Download the docker-compose file
-    wget -O docker-compose.yml https://raw.githubusercontent.com/frappe/crm/develop/docker/docker-compose.yml
-
-    # Download the setup script
-    wget -O init.sh https://raw.githubusercontent.com/frappe/crm/develop/docker/init.sh
-
-**Step 2**: Run the container and daemonize it
-
-    docker compose up -d
-
-**Step 3**: The site [http://crm.localhost:8000/crm](http://crm.localhost:8000/crm) should now be available. The default credentials are:
-
--   Username: Administrator
--   Password: admin
+Open **https://YOUR_DOMAIN/crm** — TLS is issued automatically by Caddy. Default login: **Administrator** / **admin**.
 
 ## Learn and connect
 

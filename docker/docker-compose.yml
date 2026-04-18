@@ -1,5 +1,5 @@
-version: "3.7"
 name: crm
+
 services:
   mariadb:
     image: mariadb:10.8
@@ -7,7 +7,7 @@ services:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
       - --skip-character-set-client-handshake
-      - --skip-innodb-read-only-compressed # Temporary fix for MariaDB 10.6
+      - --skip-innodb-read-only-compressed
     environment:
       MYSQL_ROOT_PASSWORD: 123
     volumes:
@@ -20,13 +20,32 @@ services:
     image: frappe/bench:latest
     command: bash /workspace/init.sh
     environment:
-      - SHELL=/bin/bash
+      SHELL: /bin/bash
+      SITE_NAME: ${SITE_NAME:-crm.localhost}
     working_dir: /home/frappe
     volumes:
       - .:/workspace
+    depends_on:
+      - mariadb
+      - redis
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
     ports:
-      - 8000:8000
-      - 9000:9000
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      DOMAIN: ${DOMAIN:-localhost}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - frappe
 
 volumes:
   mariadb-data:
+  caddy_data:
+  caddy_config:
