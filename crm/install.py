@@ -14,6 +14,24 @@ def before_install():
 	pass
 
 
+def apply_website_portal_settings():
+	"""Frappe website /login and /signup use Website Settings, not the CRM Vue app.
+
+	Default app_name is 'Frappe' and disable_signup is typically on — fix for Konnecct.
+	"""
+	doc = frappe.get_single("Website Settings")
+	doc.app_name = "Konnecct"
+	doc.disable_signup = 0
+	doc.title_prefix = "Konnecct"
+	logo_url = "/assets/crm/images/logo.svg"
+	doc.brand_html = (
+		f'<div class="website-brand" style="text-align:center">'
+		f'<img src="{logo_url}" alt="Konnecct" style="max-height:48px;width:auto;"/></div>'
+	)
+	doc.save(ignore_permissions=True)
+	frappe.clear_cache()
+
+
 def after_install(force=False):
 	add_default_lead_statuses()
 	add_default_deal_statuses()
@@ -31,6 +49,7 @@ def after_install(force=False):
 	create_default_manager_dashboard(force)
 	create_assignment_rule_custom_fields()
 	add_assignment_rule_property_setters()
+	apply_website_portal_settings()
 	frappe.db.commit()
 
 
