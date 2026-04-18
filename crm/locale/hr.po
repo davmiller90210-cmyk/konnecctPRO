@@ -131,12 +131,12 @@ msgstr "501-1000"
 msgid "51-200"
 msgstr "51-200"
 
-#. Paragraph text in the Frappe CRM Workspace
+#. Paragraph text in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "<b>META</b>"
 msgstr "<b>META</b>"
 
-#. Paragraph text in the Frappe CRM Workspace
+#. Paragraph text in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "<b>SHORTCUTS</b>"
 msgstr "<b>PREČACI</b>"
@@ -146,7 +146,7 @@ msgstr "<b>PREČACI</b>"
 msgid "<p>Dear {{ lead_name }},</p>\\n\\n<p>This is a reminder for the payment of {{ grand_total }}.</p>\\n\\n<p>Thanks,</p>\\n<p>Frappé</p>"
 msgstr "<p>Poštovani {{ lead_name }},</p>\\n\\n<p>Ovo je podsjetnik za plaćanje {{ grand_total }}.</p>\\n\\n<p>Hvala,</p>\\n<p>Frappé</p>"
 
-#. Header text in the Frappe CRM Workspace
+#. Header text in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "<span class=\"h5\"><b>PORTAL</b></span>"
 msgstr "<span class=\"h5\"><b>PORTAL</b></span>"
@@ -672,7 +672,7 @@ msgid "Are you sure you want to go back? Unsaved changes will be lost."
 msgstr "Jeste li sigurni da se želite vratiti? Nespremljene promjene bit će izgubljene."
 
 #: frontend/src/composables/frappecloud.js:24
-msgid "Are you sure you want to login to your Frappe Cloud dashboard?"
+msgid "You will open your hosting provider dashboard in a new tab."
 msgstr "Jeste li sigurni da se želite prijaviti na svoju Frappe Cloud Nadzornu Tablu?"
 
 #: frontend/src/components/FieldLayoutEditor.vue:428
@@ -750,7 +750,7 @@ msgstr "Dani Dodjele"
 msgid "Assignment Days are required"
 msgstr "Dani Dodjele su obavezni"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 #: frontend/src/components/Layouts/AppSidebar.vue:606
 #: frontend/src/components/Settings/AssignmentRules/AssignmentRulesList.vue:16
@@ -1145,7 +1145,7 @@ msgstr "Obavjest"
 msgid "CRM Organization"
 msgstr "Organizacija"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "CRM Portal Page"
 msgstr "Stranica Portala"
@@ -1543,7 +1543,7 @@ msgstr "Uobičajeni razlozi za gubitak poslova"
 msgid "Communication Status"
 msgstr "Status Konverzacije"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "Communication Statuses"
 msgstr "Statusi Konverzacije"
@@ -1660,7 +1660,7 @@ msgid "Confirm {0}"
 msgstr "Potvrdi {0}"
 
 #: frontend/src/components/Settings/ERPNextSettings.vue:246
-msgid "Connect ERPNext to Frappe CRM"
+msgid "Connect ERPNext to Konnecct"
 msgstr "Poveži Sustav sa Podrškom Prodaje"
 
 #: frontend/src/pages/Welcome.vue:35
@@ -1723,7 +1723,7 @@ msgstr "Slika kontakta ažurirana"
 
 #. Label of the contacts_tab (Tab Break) field in DocType 'CRM Deal'
 #. Label of the contacts (Table) field in DocType 'CRM Deal'
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/doctype/crm_deal/crm_deal.json
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 #: frontend/src/pages/Contact.vue:246 frontend/src/pages/MobileContact.vue:223
@@ -2027,7 +2027,7 @@ msgstr "Odgovorni"
 msgid "Deal Status"
 msgstr "Status Posla"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "Deal Statuses"
 msgstr "Statusi Posla"
@@ -2049,7 +2049,7 @@ msgstr "Status posla je obavezan"
 msgid "Deal value"
 msgstr "Vrijednost posla"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 #: frontend/src/pages/Deal.vue:513 frontend/src/pages/MobileContact.vue:299
 #: frontend/src/pages/MobileDeal.vue:392
@@ -3394,11 +3394,11 @@ msgstr "Skripta Obrasca je uspješno ažurirana"
 
 #. Name of a Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
-msgid "Frappe CRM"
+msgid "Konnecct"
 msgstr "Podrška Prodaje"
 
 #: frontend/src/components/Layouts/AppSidebar.vue:632
-msgid "Frappe CRM mobile"
+msgid "Konnecct mobile"
 msgstr "Mobilna Aplikacija"
 
 #: frontend/src/components/Settings/emailConfig.js:81
@@ -3490,7 +3490,7 @@ msgid "Geographic distribution of deals and revenue"
 msgstr "Geografska distribucija poslova i prihoda"
 
 #: frontend/src/components/Modals/AboutModal.vue:55
-msgid "GitHub Repository"
+msgid "Source code"
 msgstr "GitHub Repozitorij"
 
 #: frontend/src/components/Settings/AssignmentRules/AssignmentRuleView.vue:582
@@ -3713,7 +3713,7 @@ msgstr "Dolazna"
 msgid "Incoming call..."
 msgstr "Dolazni poziv..."
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "Industries"
 msgstr "Industrije"
@@ -4176,13 +4176,13 @@ msgstr "Odgovorni"
 msgid "Lead Owner cannot be same as the Lead Email Address"
 msgstr "Odgovorni za Potencijalnog Klijenta ne može biti isti kao i adresa e-pošte potencijalnog klijenta"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 #: frontend/src/components/Settings/LeadSyncing/LeadSyncSources.vue:9
 msgid "Lead Sources"
 msgstr "Izvori Potencijalnog Klijenta"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "Lead Statuses"
 msgstr "Statusi Potencijalnog Klijenta"
@@ -4220,7 +4220,7 @@ msgstr "Izvor sinkronizacije potencijalnih klijenata uspješno je izbrisan"
 msgid "Lead to deal conversion pipeline"
 msgstr "Konverzija potencijalnih klijenata u poslove"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 #: frontend/src/pages/InvalidPage.vue:9 frontend/src/pages/Lead.vue:368
 #: frontend/src/pages/MobileLead.vue:238
@@ -4336,7 +4336,7 @@ msgid "Log a Call"
 msgstr "Zabilježi poziv"
 
 #: frontend/src/composables/frappecloud.js:23
-msgid "Login to Frappe Cloud?"
+msgid "Open hosting dashboard?"
 msgstr "Prijavi se na Frappe Cloud?"
 
 #: frontend/src/pages/NotPermitted.vue:21
@@ -5269,7 +5269,7 @@ msgstr "Naziv Tvrtke"
 msgid "Organization is required to create a customer"
 msgstr "Organizacija je potrebna za stvaranje klijenta"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 #: frontend/src/pages/MobileOrganization.vue:218
 #: frontend/src/pages/Organization.vue:256
@@ -6023,7 +6023,7 @@ msgstr "Redovi"
 #. Label of the sla (Link) field in DocType 'CRM Deal'
 #. Label of the sla_tab (Tab Break) field in DocType 'CRM Lead'
 #. Label of the sla (Link) field in DocType 'CRM Lead'
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/doctype/crm_deal/crm_deal.json
 #: crm/fcrm/doctype/crm_lead/crm_lead.json
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
@@ -6935,7 +6935,7 @@ msgstr "Predložak je uspješno ažuriran"
 msgid "Templates"
 msgstr "Šabloni"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "Territories"
 msgstr "Distrikti"
@@ -7712,7 +7712,7 @@ msgid "You do not have Exotel Number set in your Telephony Agent"
 msgstr "Nemate Exotel broj postavljen u svom telefonskom agentu"
 
 #: frontend/src/pages/NotPermitted.vue:12
-msgid "You do not have enough permissions to access Frappe CRM. Please contact your administrator if you believe this is an error."
+msgid "You do not have enough permissions to access Konnecct. Please contact your administrator if you believe this is an error."
 msgstr "Nemate dozvolu za pristup Podrški Prodaje. Obratite se administratoru ako smatrate da je ovo pogreška."
 
 #: crm/integrations/exotel/handler.py:92
@@ -7720,7 +7720,7 @@ msgid "You do not have mobile number set in your Telephony Agent"
 msgstr "Nemate postavljen broj mobilnog telefona u svom Telefonskom Agentu"
 
 #: crm/www/crm.py:18
-msgid "You do not have permission to access Frappe CRM"
+msgid "You do not have permission to access Konnecct"
 msgstr "Nemate dopuštenje za pristup Podršci Prodaje"
 
 #: frontend/src/data/document.js:40

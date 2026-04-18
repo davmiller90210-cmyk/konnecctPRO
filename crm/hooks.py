@@ -1,11 +1,11 @@
 app_name = "crm"
-app_title = "Frappe CRM"
-app_publisher = "Frappe Technologies Pvt. Ltd."
-app_description = "Kick-ass Open Source CRM"
-app_email = "shariq@frappe.io"
+app_title = "Konnecct"
+app_publisher = "Konnecct"
+app_description = "All-in-one CRM and workspace experience"
+app_email = "hello@konnecct.com"
 app_license = "AGPLv3"
 app_icon_url = "/assets/crm/images/logo.svg"
-app_icon_title = "CRM"
+app_icon_title = "Konnecct"
 app_icon_route = "/crm"
 
 # Apps
@@ -16,7 +16,7 @@ add_to_apps_screen = [
 	{
 		"name": "crm",
 		"logo": "/assets/crm/images/logo.svg",
-		"title": "CRM",
+		"title": "Konnecct",
 		"route": "/crm",
 		"has_permission": "crm.api.check_app_permission",
 	}
@@ -290,7 +290,7 @@ standard_dropdown_items = [
 	},
 	{
 		"name1": "login_to_fc",
-		"label": "Login to Frappe Cloud",
+		"label": "Login to hosting dashboard",
 		"type": "Route",
 		"route": "#",
 		"is_standard": 1,

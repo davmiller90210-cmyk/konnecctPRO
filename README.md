@@ -1,33 +1,33 @@
 <div align="center" markdown="1">
 
-<a href="https://frappe.io/products/crm">
-    <img src=".github/logo.svg" height="80" alt="Frappe CRM Logo">
+<a href="https://konnecct.com">
+    <img src=".github/logo.svg" height="80" alt="Konnecct logo">
 </a>
 
-<h1>Frappe CRM</h1>
+<h1>Konnecct</h1>
 
-**Simplify Sales, Amplify Relationships**
+**All-in-one CRM and workspace experience**
 
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/frappe/crm)](https://github.com/frappe/crm/releases)
+_Konnecct is a product fork of [Frappe CRM](https://github.com/frappe/crm), built on the [Frappe Framework](https://github.com/frappe/frappe)._
 
 <div>
     <picture>
         <source media="(prefers-color-scheme: dark)" srcset=".github/screenshots/FrappeCRMHeroImage.png">
-        <img width="1402" alt="Frappe CRM Hero Image" src=".github/screenshots/FrappeCRMHeroImage.png">
+        <img width="1402" alt="Konnecct product screenshot" src=".github/screenshots/FrappeCRMHeroImage.png">
     </picture>
 </div>
 
-[Live Demo](https://frappecrm-demo.frappe.cloud/api/method/crm.api.live_demo.login) - [Website](https://frappe.io/crm) - [Documentation](https://docs.frappe.io/crm)
+[Website](https://konnecct.com) · [Documentation](https://konnecct.com/docs)
 
 </div>
 
-## Frappe CRM
+## Konnecct
 
-Frappe CRM is a simple, affordable, open-source CRM tool designed for modern sales teams with unlimited users. Frappe CRM is crafted for providing a great user experience, packed with features for core CRM activities helping you build strong customer relationships while keeping things clean and organised.
+Konnecct is an open-source, all-in-one CRM and workspace experience for modern teams. It keeps the same core workflows as upstream Frappe CRM—leads, deals, activities, telephony integrations, and more—while this repository carries Konnecct-specific branding and roadmap.
 
 ### Motivation
 
-The motivation behind building Frappe CRM stems from the need for a simple, customizable, and open-source solution tailored to modern business needs. Many existing CRMs are either too complex, overly generic, or locked behind steep pricing models that hinder accessibility and flexibility. Frappe CRM was designed to bridge this gap, offering a tool that empowers businesses to manage their customer relationships seamlessly while being easy to adapt to specific workflows. Built on the Frappe framework, it prioritizes usability, extensibility, and affordability, making it an ideal choice for growing teams and organizations looking for a CRM that aligns with their unique processes.
+We want a single product surface that feels cohesive for sales and operations teams, with room to grow beyond classic CRM patterns. The upstream project provides a strong open-source base; Konnecct adapts it for our product direction while remaining compatible with the Frappe ecosystem.
 
 ### Key Features
 
@@ -108,7 +108,7 @@ Get started with your personal or business site with a few clicks on Frappe Clou
 
 ### Self Hosting
 
-Follow these steps to set up Frappe CRM in production:
+Follow these steps to set up Konnecct in production:
 
 **Step 1**: Download the easy install script
 
@@ -133,7 +133,7 @@ Replace the following parameters with your values:
 -   `email.example.com`: Your email address
 -   `subdomain.domain.tld`: Your domain name where CRM will be hosted
 
-The script will set up a production-ready instance of Frappe CRM with all the necessary configurations in about 5 minutes.
+The script will set up a production-ready instance of Konnecct with all the necessary configurations in about 5 minutes.
 
 ## Getting Started (Development)
 
@@ -157,7 +157,7 @@ The script will set up a production-ready instance of Frappe CRM with all the ne
     ```
 1. Now, you can access the site on vite dev server at `http://sitename.localhost:8080`
 
-**Note:** You'll find all the code related to Frappe CRM's frontend inside `frappe-bench/apps/crm/frontend`
+**Note:** You'll find Konnecct's frontend inside `frappe-bench/apps/crm/frontend`
 
 ### Docker
 
@@ -187,17 +187,12 @@ You need Docker, docker-compose and git setup on your machine. Refer [Docker doc
 
 -   [Telegram Public Group](https://t.me/frappecrm)
 -   [Discuss Forum](https://discuss.frappe.io/c/frappe-crm)
--   [Documentation](https://docs.frappe.io/crm)
+-   [Documentation](https://konnecct.com/docs)
 -   [YouTube](https://www.youtube.com/@frappetech)
 -   [X/Twitter](https://x.com/frappetech)
 
 <br>
 <br>
 <div align="center" style="padding-top: 0.75rem;">
-	<a href="https://frappe.io" target="_blank">
-		<picture>
-			<source media="(prefers-color-scheme: dark)" srcset="https://frappe.io/files/Frappe-white.png">
-			<img src="https://frappe.io/files/Frappe-black.png" alt="Frappe Technologies" height="28"/>
-		</picture>
-	</a>
+	<p><small>Built on the <a href="https://frappe.io/framework" target="_blank">Frappe Framework</a> · Upstream: <a href="https://github.com/frappe/crm" target="_blank">Frappe CRM</a></small></p>
 </div>

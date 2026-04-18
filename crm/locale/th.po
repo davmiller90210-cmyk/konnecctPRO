@@ -131,12 +131,12 @@ msgstr "501-1000"
 msgid "51-200"
 msgstr "51-200"
 
-#. Paragraph text in the Frappe CRM Workspace
+#. Paragraph text in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "<b>META</b>"
 msgstr "<b>META</b>"
 
-#. Paragraph text in the Frappe CRM Workspace
+#. Paragraph text in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "<b>SHORTCUTS</b>"
 msgstr "<b>ทางลัด</b>"
@@ -146,7 +146,7 @@ msgstr "<b>ทางลัด</b>"
 msgid "<p>Dear {{ lead_name }},</p>\\n\\n<p>This is a reminder for the payment of {{ grand_total }}.</p>\\n\\n<p>Thanks,</p>\\n<p>Frappé</p>"
 msgstr "<p>เรียน {{ lead_name }}</p>\\n\\n<p>นี่คือการแจ้งเตือนการชำระเงิน {{ grand_total }}</p>\\n\\n<p>ขอบคุณครับ</p>\\n<p>Frappé</p>"
 
-#. Header text in the Frappe CRM Workspace
+#. Header text in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "<span class=\"h5\"><b>PORTAL</b></span>"
 msgstr "<span class=\"h5\"><b>PORTAL</b></span>"
@@ -672,7 +672,7 @@ msgid "Are you sure you want to go back? Unsaved changes will be lost."
 msgstr "คุณแน่ใจหรือไม่ว่าต้องการกลับ? การเปลี่ยนแปลงที่ยังไม่ได้บันทึกจะสูญหาย"
 
 #: frontend/src/composables/frappecloud.js:24
-msgid "Are you sure you want to login to your Frappe Cloud dashboard?"
+msgid "You will open your hosting provider dashboard in a new tab."
 msgstr "คุณแน่ใจหรือไม่ว่าต้องการล็อกอินเข้าสู่แดชบอร์ดด้วย Frappe Cloud ของคุณ?"
 
 #: frontend/src/components/FieldLayoutEditor.vue:428
@@ -750,7 +750,7 @@ msgstr "วันมอบหมายงาน"
 msgid "Assignment Days are required"
 msgstr ""
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 #: frontend/src/components/Layouts/AppSidebar.vue:606
 #: frontend/src/components/Settings/AssignmentRules/AssignmentRulesList.vue:16
@@ -1145,7 +1145,7 @@ msgstr "การแจ้งเตือน CRM"
 msgid "CRM Organization"
 msgstr "องค์กร CRM"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "CRM Portal Page"
 msgstr "หน้าพอร์ทัล CRM"
@@ -1543,7 +1543,7 @@ msgstr "สาเหตุทั่วไปของการสูญเสี
 msgid "Communication Status"
 msgstr "สถานะการติดต่อ"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "Communication Statuses"
 msgstr "สถานะการติดต่อ"
@@ -1660,7 +1660,7 @@ msgid "Confirm {0}"
 msgstr "ยืนยัน {0}"
 
 #: frontend/src/components/Settings/ERPNextSettings.vue:246
-msgid "Connect ERPNext to Frappe CRM"
+msgid "Connect ERPNext to Konnecct"
 msgstr ""
 
 #: frontend/src/pages/Welcome.vue:35
@@ -1723,7 +1723,7 @@ msgstr "อัปเดตภาพติดต่อ"
 
 #. Label of the contacts_tab (Tab Break) field in DocType 'CRM Deal'
 #. Label of the contacts (Table) field in DocType 'CRM Deal'
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/doctype/crm_deal/crm_deal.json
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 #: frontend/src/pages/Contact.vue:246 frontend/src/pages/MobileContact.vue:223
@@ -2027,7 +2027,7 @@ msgstr "เจ้าของดีล"
 msgid "Deal Status"
 msgstr "สถานะของข้อตกลง"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "Deal Statuses"
 msgstr "สถานะของดีล"
@@ -2049,7 +2049,7 @@ msgstr ""
 msgid "Deal value"
 msgstr "มูลค่าของข้อตกลง"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 #: frontend/src/pages/Deal.vue:513 frontend/src/pages/MobileContact.vue:299
 #: frontend/src/pages/MobileDeal.vue:392
@@ -3394,12 +3394,12 @@ msgstr "แบบฟอร์มสคริปต์ได้รับการ
 
 #. Name of a Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
-msgid "Frappe CRM"
-msgstr "Frappe CRM"
+msgid "Konnecct"
+msgstr "Konnecct"
 
 #: frontend/src/components/Layouts/AppSidebar.vue:632
-msgid "Frappe CRM mobile"
-msgstr "Frappe CRM มือถือ"
+msgid "Konnecct mobile"
+msgstr "Konnecct มือถือ"
 
 #: frontend/src/components/Settings/emailConfig.js:81
 msgid "Frappe Mail Site"
@@ -3490,8 +3490,8 @@ msgid "Geographic distribution of deals and revenue"
 msgstr "การกระจายตัวทางภูมิศาสตร์ของดีลและรายได้"
 
 #: frontend/src/components/Modals/AboutModal.vue:55
-msgid "GitHub Repository"
-msgstr "GitHub Repository"
+msgid "Source code"
+msgstr "Source code"
 
 #: frontend/src/components/Settings/AssignmentRules/AssignmentRuleView.vue:582
 msgid "Go Back"
@@ -3713,7 +3713,7 @@ msgstr "ขาเข้า"
 msgid "Incoming call..."
 msgstr "มีสายเรียกเข้า..."
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "Industries"
 msgstr "อุตสาหกรรม"
@@ -4176,13 +4176,13 @@ msgstr "เจ้าของลูกค้าเป้าหมาย"
 msgid "Lead Owner cannot be same as the Lead Email Address"
 msgstr "เจ้าของลูกค้าเป้าหมายไม่สามารถเป็นที่อยู่อีเมลของลูกค้าเป้าหมายได้"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 #: frontend/src/components/Settings/LeadSyncing/LeadSyncSources.vue:9
 msgid "Lead Sources"
 msgstr "แหล่งที่มาของข้อมูล"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "Lead Statuses"
 msgstr "สถานะของลีด"
@@ -4220,7 +4220,7 @@ msgstr ""
 msgid "Lead to deal conversion pipeline"
 msgstr "นำสู่กระบวนการเปลี่ยนโอกาสเป็นลูกค้า"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 #: frontend/src/pages/InvalidPage.vue:9 frontend/src/pages/Lead.vue:368
 #: frontend/src/pages/MobileLead.vue:238
@@ -4336,7 +4336,7 @@ msgid "Log a Call"
 msgstr "บันทึกการโทร"
 
 #: frontend/src/composables/frappecloud.js:23
-msgid "Login to Frappe Cloud?"
+msgid "Open hosting dashboard?"
 msgstr "เข้าสู่ระบบ Frappe Cloud?"
 
 #: frontend/src/pages/NotPermitted.vue:21
@@ -5269,7 +5269,7 @@ msgstr "ชื่อองค์กร"
 msgid "Organization is required to create a customer"
 msgstr ""
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 #: frontend/src/pages/MobileOrganization.vue:218
 #: frontend/src/pages/Organization.vue:256
@@ -6023,7 +6023,7 @@ msgstr "แถว"
 #. Label of the sla (Link) field in DocType 'CRM Deal'
 #. Label of the sla_tab (Tab Break) field in DocType 'CRM Lead'
 #. Label of the sla (Link) field in DocType 'CRM Lead'
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/doctype/crm_deal/crm_deal.json
 #: crm/fcrm/doctype/crm_lead/crm_lead.json
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
@@ -6935,7 +6935,7 @@ msgstr "แม่แบบได้รับการอัปเดตสำเ
 msgid "Templates"
 msgstr "เทมเพลต"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "Territories"
 msgstr "ดินแดน"
@@ -7712,16 +7712,16 @@ msgid "You do not have Exotel Number set in your Telephony Agent"
 msgstr "คุณยังไม่ได้ตั้งค่าหมายเลข Exotel ในตัวแทนโทรศัพท์ของคุณ"
 
 #: frontend/src/pages/NotPermitted.vue:12
-msgid "You do not have enough permissions to access Frappe CRM. Please contact your administrator if you believe this is an error."
-msgstr "คุณไม่มีสิทธิ์เพียงพอในการเข้าถึง Frappe CRM กรุณาติดต่อผู้ดูแลระบบของคุณหากคุณเชื่อว่านี่เป็นข้อผิดพลาด"
+msgid "You do not have enough permissions to access Konnecct. Please contact your administrator if you believe this is an error."
+msgstr "คุณไม่มีสิทธิ์เพียงพอในการเข้าถึง Konnecct กรุณาติดต่อผู้ดูแลระบบของคุณหากคุณเชื่อว่านี่เป็นข้อผิดพลาด"
 
 #: crm/integrations/exotel/handler.py:92
 msgid "You do not have mobile number set in your Telephony Agent"
 msgstr "คุณยังไม่ได้ตั้งค่าหมายเลขโทรศัพท์มือถือในตัวแทนโทรศัพท์ของคุณ"
 
 #: crm/www/crm.py:18
-msgid "You do not have permission to access Frappe CRM"
-msgstr "คุณไม่มีสิทธิ์เข้าถึง Frappe CRM"
+msgid "You do not have permission to access Konnecct"
+msgstr "คุณไม่มีสิทธิ์เข้าถึง Konnecct"
 
 #: frontend/src/data/document.js:40
 msgid "You do not have permission to access this document"

@@ -18,11 +18,11 @@ export default defineConfig(async ({ mode }) => {
         },
         manifest: {
           display: 'standalone',
-          name: 'Frappe CRM',
-          short_name: 'Frappe CRM',
+          name: 'Konnecct',
+          short_name: 'Konnecct',
           start_url: '/crm',
           description:
-            'Modern & 100% Open-source CRM tool to supercharge your sales operations',
+            'All-in-one CRM and workspace experience for modern teams',
           icons: [
             {
               src: '/assets/crm/manifest/manifest-icon-192.maskable.png',

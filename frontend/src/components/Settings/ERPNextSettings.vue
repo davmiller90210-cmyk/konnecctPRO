@@ -9,7 +9,7 @@
           {{ __('ERPNext Settings') }}
         </h2>
         <Tooltip text="View documentation">
-          <a href="https://docs.frappe.io/crm/erpnext" target="_blank">
+          <a href="https://konnecct.com/docs/erpnext" target="_blank">
             <lucide-circle-question-mark class="h-4 w-4 text-ink-gray-6" />
           </a>
         </Tooltip>
@@ -243,7 +243,7 @@
             <ERPNextIcon class="size-7.5 text-ink-gray-5" />
             <div class="flex flex-col items-center gap-1.5 text-center">
               <span class="text-lg font-medium text-ink-gray-8">
-                {{ __('Connect ERPNext to Frappe CRM') }}
+                {{ __('Connect ERPNext to Konnecct') }}
               </span>
               <span class="text-center text-p-base text-ink-gray-6">
                 {{

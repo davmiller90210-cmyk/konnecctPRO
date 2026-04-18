@@ -131,12 +131,12 @@ msgstr "501-1000"
 msgid "51-200"
 msgstr "51-200"
 
-#. Paragraph text in the Frappe CRM Workspace
+#. Paragraph text in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "<b>META</b>"
 msgstr "<b>META</b>"
 
-#. Paragraph text in the Frappe CRM Workspace
+#. Paragraph text in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "<b>SHORTCUTS</b>"
 msgstr "<b>GENVÄGAR</b>"
@@ -146,7 +146,7 @@ msgstr "<b>GENVÄGAR</b>"
 msgid "<p>Dear {{ lead_name }},</p>\\n\\n<p>This is a reminder for the payment of {{ grand_total }}.</p>\\n\\n<p>Thanks,</p>\\n<p>Frappé</p>"
 msgstr "<p>Bästa {{ lead_name }},</p>\\n\\n<p>Detta är en påminnelse om betalningen av {{ grand_total }}.</p>\\n\\n<p>Tack,</p>\\n<p>.</p>"
 
-#. Header text in the Frappe CRM Workspace
+#. Header text in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "<span class=\"h5\"><b>PORTAL</b></span>"
 msgstr "<span class=\"h5\"><b>PORTAL</b></span>"
@@ -672,7 +672,7 @@ msgid "Are you sure you want to go back? Unsaved changes will be lost."
 msgstr "Är du säker på att du vill ångra? Osparade ändringar kommer att gå förlorade."
 
 #: frontend/src/composables/frappecloud.js:24
-msgid "Are you sure you want to login to your Frappe Cloud dashboard?"
+msgid "You will open your hosting provider dashboard in a new tab."
 msgstr "Är du säker på att du vill logga in på din Översikt Panel i Frappe Cloud?"
 
 #: frontend/src/components/FieldLayoutEditor.vue:428
@@ -750,7 +750,7 @@ msgstr "Tilldelning Dagar"
 msgid "Assignment Days are required"
 msgstr "Tilldelning Dagar erfordras"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 #: frontend/src/components/Layouts/AppSidebar.vue:606
 #: frontend/src/components/Settings/AssignmentRules/AssignmentRulesList.vue:16
@@ -1145,7 +1145,7 @@ msgstr "Aviseringar"
 msgid "CRM Organization"
 msgstr "Organisation"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "CRM Portal Page"
 msgstr "Portal"
@@ -1543,7 +1543,7 @@ msgstr "Vanliga anledningar till att affärer går förlorade"
 msgid "Communication Status"
 msgstr "Konversation Status"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "Communication Statuses"
 msgstr "Konversation Status"
@@ -1660,7 +1660,7 @@ msgid "Confirm {0}"
 msgstr "Bekräfta {0}"
 
 #: frontend/src/components/Settings/ERPNextSettings.vue:246
-msgid "Connect ERPNext to Frappe CRM"
+msgid "Connect ERPNext to Konnecct"
 msgstr "Koppla Affärssystem till Säljstöd"
 
 #: frontend/src/pages/Welcome.vue:35
@@ -1723,7 +1723,7 @@ msgstr "Kontakt bild uppdaterad"
 
 #. Label of the contacts_tab (Tab Break) field in DocType 'CRM Deal'
 #. Label of the contacts (Table) field in DocType 'CRM Deal'
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/doctype/crm_deal/crm_deal.json
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 #: frontend/src/pages/Contact.vue:246 frontend/src/pages/MobileContact.vue:223
@@ -2027,7 +2027,7 @@ msgstr "Ansvarig"
 msgid "Deal Status"
 msgstr "Affär Status"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "Deal Statuses"
 msgstr "Affär Status"
@@ -2049,7 +2049,7 @@ msgstr "Affärsstatus erfordras"
 msgid "Deal value"
 msgstr "Affärsvärde"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 #: frontend/src/pages/Deal.vue:513 frontend/src/pages/MobileContact.vue:299
 #: frontend/src/pages/MobileDeal.vue:392
@@ -3394,11 +3394,11 @@ msgstr "Formulär Skript uppdaterad"
 
 #. Name of a Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
-msgid "Frappe CRM"
+msgid "Konnecct"
 msgstr "Säljstöd"
 
 #: frontend/src/components/Layouts/AppSidebar.vue:632
-msgid "Frappe CRM mobile"
+msgid "Konnecct mobile"
 msgstr "Mobil App"
 
 #: frontend/src/components/Settings/emailConfig.js:81
@@ -3490,7 +3490,7 @@ msgid "Geographic distribution of deals and revenue"
 msgstr "Geografisk spridning av affärer och intäkter"
 
 #: frontend/src/components/Modals/AboutModal.vue:55
-msgid "GitHub Repository"
+msgid "Source code"
 msgstr "GitHub Arkiv"
 
 #: frontend/src/components/Settings/AssignmentRules/AssignmentRuleView.vue:582
@@ -3713,7 +3713,7 @@ msgstr "Inkommande"
 msgid "Incoming call..."
 msgstr "Inkommande samtal..."
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "Industries"
 msgstr "Branscher"
@@ -4176,13 +4176,13 @@ msgstr "Potentiell Kund Ansvarig"
 msgid "Lead Owner cannot be same as the Lead Email Address"
 msgstr "Potentiell Kund Ansvarig kan inte vara samma som Potentiell Kund E-post Adress"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 #: frontend/src/components/Settings/LeadSyncing/LeadSyncSources.vue:9
 msgid "Lead Sources"
 msgstr "Potentiell Kund Källor"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "Lead Statuses"
 msgstr "Potentiell Kund Status"
@@ -4220,7 +4220,7 @@ msgstr "Potentiell Kund synkronisering källa togs bort"
 msgid "Lead to deal conversion pipeline"
 msgstr "Potentiell Kund till Affär Konvertering Pipeline"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 #: frontend/src/pages/InvalidPage.vue:9 frontend/src/pages/Lead.vue:368
 #: frontend/src/pages/MobileLead.vue:238
@@ -4336,7 +4336,7 @@ msgid "Log a Call"
 msgstr "Logga Samtal"
 
 #: frontend/src/composables/frappecloud.js:23
-msgid "Login to Frappe Cloud?"
+msgid "Open hosting dashboard?"
 msgstr "Logga in på Frappe Cloud?"
 
 #: frontend/src/pages/NotPermitted.vue:21
@@ -5269,7 +5269,7 @@ msgstr "Bolag Namn"
 msgid "Organization is required to create a customer"
 msgstr "Organisation erfordras för att skapa kund"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 #: frontend/src/pages/MobileOrganization.vue:218
 #: frontend/src/pages/Organization.vue:256
@@ -6023,7 +6023,7 @@ msgstr "Rader"
 #. Label of the sla (Link) field in DocType 'CRM Deal'
 #. Label of the sla_tab (Tab Break) field in DocType 'CRM Lead'
 #. Label of the sla (Link) field in DocType 'CRM Lead'
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/doctype/crm_deal/crm_deal.json
 #: crm/fcrm/doctype/crm_lead/crm_lead.json
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
@@ -6935,7 +6935,7 @@ msgstr "Mall uppdaterad"
 msgid "Templates"
 msgstr "Mallar"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "Territories"
 msgstr "Distrikt"
@@ -7712,7 +7712,7 @@ msgid "You do not have Exotel Number set in your Telephony Agent"
 msgstr "Du har inget Exotel Nummer angiven i din Telefoni Agent"
 
 #: frontend/src/pages/NotPermitted.vue:12
-msgid "You do not have enough permissions to access Frappe CRM. Please contact your administrator if you believe this is an error."
+msgid "You do not have enough permissions to access Konnecct. Please contact your administrator if you believe this is an error."
 msgstr "Du har inte tillräcklig behörighet för att komma åt Säljstöd. Kontakta administratör om du tror att detta är felaktigt."
 
 #: crm/integrations/exotel/handler.py:92
@@ -7720,7 +7720,7 @@ msgid "You do not have mobile number set in your Telephony Agent"
 msgstr "Du har inget Mobil Nummer angiven i din Telefoni Agent"
 
 #: crm/www/crm.py:18
-msgid "You do not have permission to access Frappe CRM"
+msgid "You do not have permission to access Konnecct"
 msgstr "Du har inte åtkomstbehörighet till Säljstöd"
 
 #: frontend/src/data/document.js:40

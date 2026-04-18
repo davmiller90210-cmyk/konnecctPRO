@@ -131,12 +131,12 @@ msgstr "501-1000"
 msgid "51-200"
 msgstr "51-200"
 
-#. Paragraph text in the Frappe CRM Workspace
+#. Paragraph text in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "<b>META</b>"
 msgstr "<b>META</b>"
 
-#. Paragraph text in the Frappe CRM Workspace
+#. Paragraph text in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "<b>SHORTCUTS</b>"
 msgstr "<b>SHORTCUTS</b>"
@@ -146,7 +146,7 @@ msgstr "<b>SHORTCUTS</b>"
 msgid "<p>Dear {{ lead_name }},</p>\\n\\n<p>This is a reminder for the payment of {{ grand_total }}.</p>\\n\\n<p>Thanks,</p>\\n<p>Frappé</p>"
 msgstr "<p>Beste {{ lead_name }},</p>\\n\\n<p>Dit is een herinnering voor de betaling van {{ grand_total }}.</p>\\n\\n<p>Bedankt,</p>\\n<p>Frappe₀</p>"
 
-#. Header text in the Frappe CRM Workspace
+#. Header text in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "<span class=\"h5\"><b>PORTAL</b></span>"
 msgstr "<span class=\"h5\"><b>PORTAL</b></span>"
@@ -672,7 +672,7 @@ msgid "Are you sure you want to go back? Unsaved changes will be lost."
 msgstr "Weet u zeker dat u terug wilt gaan? Niet-opgeslagen wijzigingen zullen verloren gaan."
 
 #: frontend/src/composables/frappecloud.js:24
-msgid "Are you sure you want to login to your Frappe Cloud dashboard?"
+msgid "You will open your hosting provider dashboard in a new tab."
 msgstr "Weet je zeker dat je wilt inloggen op je Frappe Cloud dashboard?"
 
 #: frontend/src/components/FieldLayoutEditor.vue:428
@@ -750,7 +750,7 @@ msgstr "Opdrachtdagen"
 msgid "Assignment Days are required"
 msgstr ""
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 #: frontend/src/components/Layouts/AppSidebar.vue:606
 #: frontend/src/components/Settings/AssignmentRules/AssignmentRulesList.vue:16
@@ -1145,7 +1145,7 @@ msgstr "CRM Notificatie"
 msgid "CRM Organization"
 msgstr "CRM organisatie"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "CRM Portal Page"
 msgstr "CRM Portal pagina"
@@ -1543,7 +1543,7 @@ msgstr "Veel voorkomende redenen voor het mislopen van deals"
 msgid "Communication Status"
 msgstr "Communicatie status"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "Communication Statuses"
 msgstr "Communicatie Statussen"
@@ -1660,7 +1660,7 @@ msgid "Confirm {0}"
 msgstr ""
 
 #: frontend/src/components/Settings/ERPNextSettings.vue:246
-msgid "Connect ERPNext to Frappe CRM"
+msgid "Connect ERPNext to Konnecct"
 msgstr ""
 
 #: frontend/src/pages/Welcome.vue:35
@@ -1723,7 +1723,7 @@ msgstr "Contactafbeelding bijgewerkt"
 
 #. Label of the contacts_tab (Tab Break) field in DocType 'CRM Deal'
 #. Label of the contacts (Table) field in DocType 'CRM Deal'
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/doctype/crm_deal/crm_deal.json
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 #: frontend/src/pages/Contact.vue:246 frontend/src/pages/MobileContact.vue:223
@@ -2027,7 +2027,7 @@ msgstr "Deal Eigenaar"
 msgid "Deal Status"
 msgstr "Deal Status"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "Deal Statuses"
 msgstr "Deal statussen"
@@ -2049,7 +2049,7 @@ msgstr ""
 msgid "Deal value"
 msgstr "Deal waarde"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 #: frontend/src/pages/Deal.vue:513 frontend/src/pages/MobileContact.vue:299
 #: frontend/src/pages/MobileDeal.vue:392
@@ -3394,12 +3394,12 @@ msgstr "Formulier Script succesvol bijgewerkt"
 
 #. Name of a Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
-msgid "Frappe CRM"
-msgstr "Frappe CRM"
+msgid "Konnecct"
+msgstr "Konnecct"
 
 #: frontend/src/components/Layouts/AppSidebar.vue:632
-msgid "Frappe CRM mobile"
-msgstr "Frappe CRM mobiel"
+msgid "Konnecct mobile"
+msgstr "Konnecct mobiel"
 
 #: frontend/src/components/Settings/emailConfig.js:81
 msgid "Frappe Mail Site"
@@ -3490,7 +3490,7 @@ msgid "Geographic distribution of deals and revenue"
 msgstr "Geografische distributie van deals en inkomsten"
 
 #: frontend/src/components/Modals/AboutModal.vue:55
-msgid "GitHub Repository"
+msgid "Source code"
 msgstr "GitHub repository"
 
 #: frontend/src/components/Settings/AssignmentRules/AssignmentRuleView.vue:582
@@ -3713,7 +3713,7 @@ msgstr "Inkomend"
 msgid "Incoming call..."
 msgstr "Inkomende oproep..."
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "Industries"
 msgstr "Industrieën"
@@ -4176,13 +4176,13 @@ msgstr "Lead Eigenaar"
 msgid "Lead Owner cannot be same as the Lead Email Address"
 msgstr "Lead Eigenaar mag niet hetzelfde zijn als het Lead e-mailadres"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 #: frontend/src/components/Settings/LeadSyncing/LeadSyncSources.vue:9
 msgid "Lead Sources"
 msgstr "Lead Bronnen"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "Lead Statuses"
 msgstr "Lead statussen"
@@ -4220,7 +4220,7 @@ msgstr ""
 msgid "Lead to deal conversion pipeline"
 msgstr "Lead-naar-deal conversiepipeline"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 #: frontend/src/pages/InvalidPage.vue:9 frontend/src/pages/Lead.vue:368
 #: frontend/src/pages/MobileLead.vue:238
@@ -4336,7 +4336,7 @@ msgid "Log a Call"
 msgstr "Log een gesprek"
 
 #: frontend/src/composables/frappecloud.js:23
-msgid "Login to Frappe Cloud?"
+msgid "Open hosting dashboard?"
 msgstr "Inloggen bij Frappe Cloud?"
 
 #: frontend/src/pages/NotPermitted.vue:21
@@ -5269,7 +5269,7 @@ msgstr "Naam van de organisatie"
 msgid "Organization is required to create a customer"
 msgstr ""
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 #: frontend/src/pages/MobileOrganization.vue:218
 #: frontend/src/pages/Organization.vue:256
@@ -6023,7 +6023,7 @@ msgstr "Rijen"
 #. Label of the sla (Link) field in DocType 'CRM Deal'
 #. Label of the sla_tab (Tab Break) field in DocType 'CRM Lead'
 #. Label of the sla (Link) field in DocType 'CRM Lead'
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/doctype/crm_deal/crm_deal.json
 #: crm/fcrm/doctype/crm_lead/crm_lead.json
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
@@ -6935,7 +6935,7 @@ msgstr "Template met succes bijgewerkt"
 msgid "Templates"
 msgstr "Sjablonen"
 
-#. Label of a shortcut in the Frappe CRM Workspace
+#. Label of a shortcut in the Konnecct Workspace
 #: crm/fcrm/workspace/frappe_crm/frappe_crm.json
 msgid "Territories"
 msgstr "Gebieden"
@@ -7712,16 +7712,16 @@ msgid "You do not have Exotel Number set in your Telephony Agent"
 msgstr "U hebt geen Exotel Nummer ingesteld in uw Telephony Agent"
 
 #: frontend/src/pages/NotPermitted.vue:12
-msgid "You do not have enough permissions to access Frappe CRM. Please contact your administrator if you believe this is an error."
-msgstr "U hebt niet genoeg rechten om toegang te krijgen tot Frappe CRM. Neem contact op met uw beheerder als u denkt dat dit een fout is."
+msgid "You do not have enough permissions to access Konnecct. Please contact your administrator if you believe this is an error."
+msgstr "U hebt niet genoeg rechten om toegang te krijgen tot Konnecct. Neem contact op met uw beheerder als u denkt dat dit een fout is."
 
 #: crm/integrations/exotel/handler.py:92
 msgid "You do not have mobile number set in your Telephony Agent"
 msgstr "U hebt geen mobiel nummer ingesteld in uw Telefonieagent"
 
 #: crm/www/crm.py:18
-msgid "You do not have permission to access Frappe CRM"
-msgstr "U hebt geen toestemming voor toegang tot Frappe CRM"
+msgid "You do not have permission to access Konnecct"
+msgstr "U hebt geen toestemming voor toegang tot Konnecct"
 
 #: frontend/src/data/document.js:40
 msgid "You do not have permission to access this document"

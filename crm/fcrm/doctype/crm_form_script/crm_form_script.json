@@ -40,7 +40,7 @@
   },
   {
    "default": "function setupForm({ doc }) {\n    return {\n        actions: [],\n    }\n}",
-   "documentation_url": "https://docs.frappe.io/crm/custom-actions",
+   "documentation_url": "https://konnecct.com/docs/custom-actions",
    "fieldname": "script",
    "fieldtype": "Code",
    "label": "Script",
