@@ -7,9 +7,15 @@ Upstream `sign_up` emails a password-reset link; without outgoing email that ste
 from frappe import _
 from frappe.auth import LoginManager
 from frappe.utils import cint, escape_html, random_string
-from frappe.website.utils import is_signup_disabled, sanitize_redirect
+from frappe.website.utils import is_signup_disabled
 
 import frappe
+
+try:
+	# Frappe v15+ (see frappe/core/doctype/user/user.py sign_up)
+	from frappe.www.login import sanitize_redirect
+except ImportError:  # pragma: no cover - older benches
+	from frappe.website.utils import sanitize_redirect
 
 
 @frappe.whitelist(allow_guest=True)
