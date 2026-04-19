@@ -25,6 +25,8 @@ services:
     working_dir: /home/frappe
     volumes:
       - .:/workspace
+      # Optional: live-mount Konnecct app from host repo (../crm = konnecctPRO/crm). Uncomment after first bench exists.
+      # - ../crm:/home/frappe/frappe-bench/apps/crm
     depends_on:
       - mariadb
       - redis

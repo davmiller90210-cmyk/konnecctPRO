@@ -119,12 +119,16 @@ ls -la ~/konnecctPRO
 find "$HOME" -maxdepth 8 \( -name bench -type f -o -path '*/frappe-bench/sites' -type d \) 2>/dev/null | head -30
 ```
 
-If you use Docker Compose from this repo (stack that serves `app.konnecct.com`), run **bench inside the `frappe` service** (from the directory that contains `docker-compose.yml`, often `~/konnecctPRO/docker`):
+If you use Docker Compose from this repo (stack that serves `app.konnecct.com`), run **bench inside the `frappe` service** (from the directory that contains `docker-compose.yml`, often `~/konnecctPRO/docker`).
+
+**Important:** the code that runs is **`/home/frappe/frappe-bench/apps/crm` inside the container**, not your host folder `~/konnecctPRO` unless you added a bind mount. **`git pull` on the host alone does not update the container.** Update the app **inside** the `frappe` container first (see [docker/README.md](docker/README.md)), then:
 
 ```bash
 cd ~/konnecctPRO/docker
-docker compose exec frappe bash -lc 'cd ~/frappe-bench && bench --site app.konnecct.com execute crm.install.apply_website_portal_settings && bench --site app.konnecct.com clear-cache && bench restart'
+docker compose exec frappe bash -lc 'cd ~/frappe-bench && bench --site app.konnecct.com execute crm.konnecct_portal.apply_website_portal_settings && bench --site app.konnecct.com clear-cache && bench restart'
 ```
+
+If you see **`AttributeError: ... has no attribute 'apply_website_portal_settings'`**, the container still has an **old** `crm` app. Pull **your fork** inside the container, migrate, then run the line above again — see **“Docker: update Konnecct inside the container”** in [docker/README.md](docker/README.md).
 
 Adjust the `cd` path to your compose folder if it is not `~/konnecctPRO/docker`.
 
@@ -181,7 +185,7 @@ That means **`frappe-bench/apps/crm` is not this fork**, or **`bench migrate` ha
 2. **Force portal settings once** (safe to re-run; from `~/frappe-bench`):
 
 ```bash
-bench --site your.site.domain execute crm.install.apply_website_portal_settings
+bench --site your.site.domain execute crm.konnecct_portal.apply_website_portal_settings
 bench --site your.site.domain clear-cache
 bench restart
 ```

@@ -18,6 +18,28 @@ Default login (from `init.sh`): **Administrator** / **admin** (change after firs
 
 First-time `init.sh` installs the **Konnecct** app from this repository’s GitHub fork (`develop`), not the default upstream `crm` marketplace app — see `bench get-app` in [init.sh](init.sh).
 
+## Docker: update Konnecct inside the container (fixes missing `apply_website_portal_settings`)
+
+`~/konnecctPRO` on the **host** is only your Git clone. The running app lives at **`~/frappe-bench/apps/crm` inside the `frappe` container** (not automatically the same as your host clone). If `bench execute ... apply_website_portal_settings` fails with **AttributeError**, the container’s `apps/crm` is outdated or still points at upstream.
+
+From the directory that contains `docker-compose.yml` (e.g. `~/konnecctPRO/docker`):
+
+```bash
+docker compose exec frappe bash -lc 'cd ~/frappe-bench/apps/crm && git remote -v'
+```
+
+Point `origin` at **your** Konnecct fork if needed, then pull and migrate:
+
+```bash
+docker compose exec frappe bash -lc 'cd ~/frappe-bench/apps/crm && git fetch origin && git checkout develop && git pull origin develop'
+docker compose exec frappe bash -lc 'cd ~/frappe-bench && bench --site app.konnecct.com migrate && bench --site app.konnecct.com clear-cache && bench restart'
+docker compose exec frappe bash -lc 'cd ~/frappe-bench && bench --site app.konnecct.com execute crm.konnecct_portal.apply_website_portal_settings && bench --site app.konnecct.com clear-cache'
+```
+
+(Replace `app.konnecct.com` with your `SITE_NAME` from `.env` if different.)
+
+**Optional dev mount:** uncomment the `../crm` volume on the `frappe` service in [docker-compose.yml](docker-compose.yml) so the container’s `apps/crm` tracks `konnecctPRO/crm` from the host (only after the bench exists; restart Compose).
+
 ## Environment variables
 
 | Variable    | Purpose |
