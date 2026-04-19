@@ -15,14 +15,19 @@ def before_install():
 
 
 def apply_website_portal_settings():
-	"""Frappe website /login and /signup use Website Settings, not the CRM Vue app.
+	"""Website portal at /login and /signup (not the /crm Vue app) reads Website Settings.
 
-	Default app_name is 'Frappe' and disable_signup is typically on — fix for Konnecct.
+	Konnecct forces: Konnecct branding, signups allowed, login visible, signup link not hidden.
+	Frappe defaults often leave app_name as \"Frappe\", disable_signup checked, and footer signup hidden.
 	"""
 	doc = frappe.get_single("Website Settings")
 	doc.app_name = "Konnecct"
-	doc.disable_signup = 0
 	doc.title_prefix = "Konnecct"
+	# Check fields: 0 = allow signups / show UI; 1 = block or hide
+	doc.disable_signup = 0
+	doc.hide_footer_signup = 0
+	doc.hide_login = 0
+	doc.footer_powered = "Konnecct"
 	logo_url = "/assets/crm/images/logo.svg"
 	doc.brand_html = (
 		f'<div class="website-brand" style="text-align:center">'

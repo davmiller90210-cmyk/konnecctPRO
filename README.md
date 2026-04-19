@@ -128,6 +128,22 @@ Replace `your.site.domain` with your site name (often the same as the public hos
 
 The optional **[docker/](docker/)** Compose setup in this repo is **only** for container-based installs; you do **not** need `cd konnecctPRO/docker` if you use a normal bench on the VM.
 
+#### If the site still says “Frappe”, or signup is still disabled
+
+That means **`frappe-bench/apps/crm` is not this fork**, or **`bench migrate` has not run** on that server since you pulled Konnecct — the running Python code is what updates **Website Settings** in the database.
+
+1. Fix `apps/crm` (fork + `git pull`) and run migrate + clear-cache (commands above).
+
+2. **Force portal settings once** (safe to re-run; from `~/frappe-bench`):
+
+```bash
+bench --site your.site.domain execute crm.install.apply_website_portal_settings
+bench --site your.site.domain clear-cache
+bench restart
+```
+
+3. In Desk you can confirm: **Website → Website Settings** — **App Name** should be Konnecct, **Disable signups** unchecked, **Hide footer signup** unchecked.
+
 ### Managed Hosting
 
 Get started with your personal or business site with a few clicks on Frappe Cloud - our official hosting service.
