@@ -205,10 +205,10 @@ before_tests = "crm.tests.before_tests"
 
 # Overriding Methods
 # ------------------------------
-#
-# override_whitelisted_methods = {
-# "frappe.desk.doctype.event.event.get_events": "crm.event.get_events"
-# }
+
+override_whitelisted_methods = {
+	"frappe.core.doctype.user.user.sign_up": "crm.konnecct_signup.sign_up",
+}
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,
