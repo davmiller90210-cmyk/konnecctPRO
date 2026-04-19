@@ -99,11 +99,10 @@ def sign_up(
 	user.flags.ignore_permissions = True
 	user.flags.ignore_password_policy = bool(must_set_flag)
 	user.flags.no_welcome_mail = True
-	user.insert()
-
+	# Roles must exist before ``insert()`` or Frappe shows "No Roles Specified" (User.check_roles_added).
 	user.append_roles("Sales User")
 	_restrict_modules_to_fcrm(user)
-	user.save(ignore_permissions=True)
+	user.insert()
 
 	target = sanitize_redirect(redirect_to) if redirect_to else "/crm"
 	frappe.cache.hset("redirect_after_login", user.name, target)

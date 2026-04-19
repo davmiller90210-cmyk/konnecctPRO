@@ -149,7 +149,7 @@ Until you do this (or bind-mount `apps/crm`), the site keeps using **old code** 
 #### Auth, passwords, and roles (Konnecct)
 
 - **Signup** uses a Konnecct signup form with **password + confirm**; users can sign in with email and password after logout. Legacy users created without a chosen password get a **“set password”** flow in CRM (**Settings → Profile → Change Password**) that does not ask for a “current” password until they have set one once.
-- **One site = one shared CRM** (one database). “Organizations” in the app are **customer companies**, not separate SaaS tenants. Isolation for unrelated customers means **separate Frappe sites** (see [MULTITENANCY_NOTES.md](MULTITENANCY_NOTES.md)).
+- **One site = one shared CRM** (one database). **Self-signup does not create a new “tenant” or workspace per user** — every user on that hostname joins the **same** site and sees the same leads/deals (subject to normal CRM permissions). “Organizations” in the app are **customer companies** you sell to, not SaaS isolation boundaries. **True multi-tenant** isolation for unrelated customers is **one Frappe site (or subdomain + site) per customer** on your bench, or a large custom row-level tenancy project — see [MULTITENANCY_NOTES.md](MULTITENANCY_NOTES.md).
 - **Integrations** (Twilio, WhatsApp, ERPNext linking, lead sync, most system settings in the CRM UI) are **Sales Manager / System Manager** territory. Self-signup assigns **Sales User** so day-to-day reps can use CRM without admin keys; **promote** trusted admins in **Settings → Users** (or Desk) when they should manage integrations.
 
 #### No terminal access to bench? Use Desk (browser)
