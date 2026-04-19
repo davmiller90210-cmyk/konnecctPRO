@@ -14,6 +14,8 @@ from frappe import _
 def _bypasses_workspace_tenancy(user: str | None = None) -> bool:
 	"""Users who manage the whole site see all workspaces and all scoped CRM rows."""
 	user = user or frappe.session.user
+	if not user:
+		return False
 	if user == "Administrator":
 		return True
 	return "System Manager" in frappe.get_roles(user)
@@ -22,7 +24,7 @@ def _bypasses_workspace_tenancy(user: str | None = None) -> bool:
 def get_user_workspace_names(user: str | None = None) -> list[str]:
 	"""Return workspace names the user may access (owner or listed member)."""
 	user = user or frappe.session.user
-	if user in ("Guest",):
+	if not user or user in ("Guest",):
 		return []
 
 	names: set[str] = set()
@@ -61,6 +63,8 @@ def set_current_workspace(workspace: str, user: str | None = None) -> None:
 
 def create_workspace_for_user(user_name: str, title: str | None = None) -> str:
 	"""Create a **Konnecct Workspace** owned by the user with a single admin member row."""
+	if not user_name or user_name == "Guest":
+		frappe.throw(_("A valid user is required to create a Konnecct Workspace"))
 	title = title or _("{0}'s workspace").format(user_name)
 	ws = frappe.get_doc(
 		{
@@ -85,7 +89,8 @@ def provision_new_user_workspace(user_name: str) -> str:
 def ensure_default_workspace_for_user(user: str | None = None) -> str | None:
 	"""Ensure the user belongs to at least one workspace and has a valid default."""
 	user = user or frappe.session.user
-	if user in ("Guest", "Administrator"):
+	# Session can be unset briefly during `on_login`; treat like no user.
+	if not user or user in ("Guest", "Administrator"):
 		return None
 
 	workspaces = get_user_workspace_names(user)
@@ -105,7 +110,13 @@ def ensure_default_workspace_for_user(user: str | None = None) -> str | None:
 
 
 def on_login(login_manager=None) -> None:
-	ensure_default_workspace_for_user()
+	# Prefer LoginManager.user — frappe.session.user is not always set yet when hooks run.
+	login_user = getattr(login_manager, "user", None) if login_manager is not None else None
+	if not login_user:
+		login_user = frappe.session.user
+	if not login_user:
+		return
+	ensure_default_workspace_for_user(login_user)
 
 
 def _user_sql_literal(user: str) -> str:
