@@ -108,7 +108,7 @@ def sign_up(
 	try:
 		provision_new_user_workspace(user.name)
 	except Exception:
-		# User is already created; login-time `ensure_default_workspace_for_user` will recover.
+		# If this fails, add the user to a workspace from Desk or run `provision_new_user_workspace` from bench console.
 		frappe.log_error(title="Konnecct workspace provisioning failed")
 
 	target = sanitize_redirect(redirect_to) if redirect_to else "/crm"

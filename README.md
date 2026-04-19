@@ -90,7 +90,7 @@ Leads and deals carry a **Konnecct Workspace** link (the workspace DocType uses 
 
 Migrate patch `crm.patches.v1_0.grant_konnecct_app_owner` assigns full app roles to the designated owner email in that patch file (edit the constant if you fork the repo).
 
-On migrate, patch `crm.patches.v1_0.backfill_konnecct_workspace` creates a workspace titled **Organization** (when none exists yet), adds users who have **Sales User**, **Sales Manager**, or **System Manager** as members, and fills empty lead/deal workspace links. Portal sign-up provisions a personal workspace and sets the user default `konnecct_workspace`. Each login ensures that default still points at a workspace the user belongs to.
+On migrate, patch `crm.patches.v1_0.backfill_konnecct_workspace` creates a workspace titled **Organization** (when none exists yet), adds users who have **Sales User**, **Sales Manager**, or **System Manager** as members, and fills empty lead/deal workspace links. Portal sign-up provisions a personal workspace and sets the user default `konnecct_workspace`. **Login does not create workspaces** (only syncs the default when the user already belongs to one), so sign-in cannot fail on workspace validation.
 
 ### Compatibility
 This app is compatible with the following versions of Frappe and ERPNext:

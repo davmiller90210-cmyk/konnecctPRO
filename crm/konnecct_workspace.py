@@ -66,16 +66,15 @@ def create_workspace_for_user(user_name: str, title: str | None = None) -> str:
 	if not user_name or user_name == "Guest":
 		frappe.throw(_("A valid user is required to create a Konnecct Workspace"))
 	title = title or _("{0}'s workspace").format(user_name)
-	ws = frappe.get_doc(
-		{
-			"doctype": "Konnecct Workspace",
-			"title": title,
-			"workspace_owner": user_name,
-			"members": [{"member_user": user_name, "is_workspace_admin": 1}],
-		}
-	)
+	# Use new_doc + append — avoids dict/child quirks and keeps login/auth paths safe.
+	ws = frappe.new_doc("Konnecct Workspace")
+	ws.title = title
+	ws.workspace_owner = user_name
 	ws.flags.ignore_permissions = True
 	ws.insert()
+	ws.append("members", {"member_user": user_name, "is_workspace_admin": 1})
+	ws.flags.ignore_permissions = True
+	ws.save()
 	return ws.name
 
 
@@ -95,9 +94,9 @@ def ensure_default_workspace_for_user(user: str | None = None) -> str | None:
 
 	workspaces = get_user_workspace_names(user)
 	if not workspaces:
-		provision_new_user_workspace(user)
-		workspaces = get_user_workspace_names(user)
-	if not workspaces:
+		# Never create workspaces during login — it runs inside auth before the session is
+		# fully established and used to break sign-in. Provisioning happens on portal signup
+		# (`provision_new_user_workspace`) and migration (`backfill_konnecct_workspace`).
 		return None
 
 	current = frappe.defaults.get_user_default("konnecct_workspace", user)
