@@ -96,7 +96,45 @@ This app is compatible with the following versions of Frappe and ERPNext:
 
 ### Production on your own VM (e.g. Google Cloud)
 
-Your fork clone and the running Frappe site are **two different directories**:
+#### `bench: command not found` (most common when SSH’d into the server)
+
+**Konnecct is your app;** this error does **not** mean your folder must be named `frappe-bench`. It means the shell you are using **cannot find the `bench` program** on that machine.
+
+That usually happens for one of these reasons:
+
+1. **Frappe runs in Docker** — `bench` exists **inside** the app container, not on the host. Staying in `~/konnecctPRO` and running `bench` on the host will fail. Use the **Docker commands** in the next subsection.
+2. **Bench is installed but not on your PATH** — e.g. `~/.local/bin/bench`. Try:
+   ```bash
+   export PATH="$HOME/.local/bin:$PATH"
+   which bench
+   ```
+3. **Bench lives next to your site** — you must `cd` to the directory that contains a `sites/` folder **and** has `bench` available (see discovery commands below). That directory might be named anything; `~/frappe-bench` is only a common default.
+
+**Discover where Konnecct/Frappe actually runs (run on the VM):**
+
+```bash
+export PATH="$HOME/.local/bin:$PATH"
+which bench
+ls -la ~/konnecctPRO
+find "$HOME" -maxdepth 8 \( -name bench -type f -o -path '*/frappe-bench/sites' -type d \) 2>/dev/null | head -30
+```
+
+If you use Docker Compose from this repo (stack that serves `app.konnecct.com`), run **bench inside the `frappe` service** (from the directory that contains `docker-compose.yml`, often `~/konnecctPRO/docker`):
+
+```bash
+cd ~/konnecctPRO/docker
+docker compose exec frappe bash -lc 'cd ~/frappe-bench && bench --site app.konnecct.com execute crm.install.apply_website_portal_settings && bench --site app.konnecct.com clear-cache && bench restart'
+```
+
+Adjust the `cd` path to your compose folder if it is not `~/konnecctPRO/docker`.
+
+#### No terminal access to bench? Use Desk (browser)
+
+Log in as **Administrator** → **Website → Website Settings** and set **App Name** to `Konnecct`, uncheck **Disable signups**, uncheck **Hide footer signup**, set **Brand HTML** / logo as needed, then **Save**. That updates the same database fields as `apply_website_portal_settings` without using the `bench` CLI.
+
+---
+
+Your fork clone and the running Frappe site are **two different directories** (unless you symlinked them on purpose):
 
 | Location | What it is |
 |----------|------------|
