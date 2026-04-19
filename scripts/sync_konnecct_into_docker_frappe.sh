@@ -36,6 +36,11 @@ if [[ -z "${CID:-}" ]]; then
 	exit 1
 fi
 
+# docker cp creates root-owned files; ``frappe`` user cannot rm them. Use root for destructive steps.
+compose_root() {
+	docker compose exec -u root frappe bash -lc "$1"
+}
+
 copy() {
 	local name="$1"
 	local src="$KONNECCT_REPO/crm/$name"
@@ -69,7 +74,7 @@ copy install.py
 # Full api/ package — hooks reference crm.api.event (scheduler), not only user.py.
 API_HOST="${KONNECCT_REPO}/crm/api"
 if [[ -d "$API_HOST" ]]; then
-	docker compose exec frappe bash -lc "rm -rf /home/frappe/frappe-bench/apps/crm/crm/api"
+	compose_root "rm -rf /home/frappe/frappe-bench/apps/crm/crm/api"
 	docker cp "$API_HOST" "${CID}:/home/frappe/frappe-bench/apps/crm/crm/"
 	echo "OK: api/ -> container:${DEST_PKG}/api"
 else
@@ -82,7 +87,7 @@ copy_rel setup/konnecct_auth_fields.py
 # patches.txt lists many modules — copy the whole tree or migrate fails with ModuleNotFoundError.
 PATCHES_HOST="${KONNECCT_REPO}/crm/patches"
 if [[ -d "$PATCHES_HOST" ]]; then
-	docker compose exec frappe bash -lc "rm -rf /home/frappe/frappe-bench/apps/crm/crm/patches"
+	compose_root "rm -rf /home/frappe/frappe-bench/apps/crm/crm/patches"
 	docker cp "$PATCHES_HOST" "${CID}:/home/frappe/frappe-bench/apps/crm/crm/"
 	echo "OK: patches/ -> container:${DEST_PKG}/patches"
 else
@@ -107,6 +112,9 @@ if [[ -f "$SIGNUP_SRC" ]]; then
 else
 	echo "Skip (missing on host): $SIGNUP_SRC" >&2
 fi
+
+# Files copied from the host are often root:root; bench runs as frappe.
+compose_root "chown -R frappe:frappe /home/frappe/frappe-bench/apps/crm/crm"
 
 docker compose exec frappe bash -lc "cd ~/frappe-bench && bench --site ${SITE_NAME} migrate && bench --site ${SITE_NAME} clear-cache && bench restart"
 
