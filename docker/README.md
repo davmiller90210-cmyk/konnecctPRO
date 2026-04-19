@@ -18,22 +18,62 @@ Default login (from `init.sh`): **Administrator** / **admin** (change after firs
 
 First-time `init.sh` installs the **Konnecct** app from this repository’s GitHub fork (`develop`), not the default upstream `crm` marketplace app — see `bench get-app` in [init.sh](init.sh).
 
-## Docker: update Konnecct inside the container (fixes missing `apply_website_portal_settings`)
+## Host vs container (read this once)
 
-`~/konnecctPRO` on the **host** is only your Git clone. The running app lives at **`~/frappe-bench/apps/crm` inside the `frappe` container** (not automatically the same as your host clone). If `bench execute ... apply_website_portal_settings` fails with **AttributeError**, the container’s `apps/crm` is outdated or still points at upstream.
+- On the **host** you have **`~/konnecctPRO`** — your Git repo. There is **no** `~/frappe-bench` on the host unless you installed bench yourself; **that is normal.**
+- **`frappe-bench` exists only inside the `frappe` Docker container** at `/home/frappe/frappe-bench`. You never `cd` there on the host; you run **`docker compose exec frappe ...`** and paths like `~/frappe-bench` are **inside** that container.
+- The Python package for the app is **`crm`**, so new files from this repo live at  
+  **`/home/frappe/frappe-bench/apps/crm/crm/`** (inner `crm` folder — next to `hooks.py`).
 
-From the directory that contains `docker-compose.yml` (e.g. `~/konnecctPRO/docker`):
+If `git remote` inside the container shows only **`upstream` → `github.com/frappe/crm`**, the container is still on **upstream CRM**, not your Konnecct fork — so modules like `crm.konnecct_portal` will **not** exist until you copy or replace that code.
+
+---
+
+## Fix portal branding / signup (pick one path)
+
+### A) Fastest: copy Konnecct file from your host clone into the container (no Git remote surgery)
+
+From **`~/konnecctPRO/docker`** on the host (adjust site name if needed):
+
+```bash
+docker compose cp ../crm/konnecct_portal.py frappe:/home/frappe/frappe-bench/apps/crm/crm/konnecct_portal.py
+docker compose exec frappe bash -lc 'cd ~/frappe-bench && bench --site app.konnecct.com execute crm.konnecct_portal.apply_website_portal_settings && bench --site app.konnecct.com clear-cache'
+```
+
+If `docker compose cp` is not available, use the container name from `docker compose ps` (e.g. `crm-frappe-1`):
+
+```bash
+docker cp ~/konnecctPRO/crm/konnecct_portal.py crm-frappe-1:/home/frappe/frappe-bench/apps/crm/crm/konnecct_portal.py
+```
+
+### B) No new files: apply Website Settings from a one-shot console (always works)
+
+```bash
+docker compose exec frappe bash -lc 'cd ~/frappe-bench && bench --site app.konnecct.com console' <<'PY'
+import frappe
+d = frappe.get_single("Website Settings")
+d.app_name = "Konnecct"
+d.title_prefix = "Konnecct"
+d.disable_signup = 0
+d.hide_footer_signup = 0
+d.hide_login = 0
+d.footer_powered = "Konnecct"
+d.brand_html = '<div class="website-brand" style="text-align:center"><img src="/assets/crm/images/logo.svg" alt="Konnecct" style="max-height:48px;width:auto;"/></div>'
+d.save(ignore_permissions=True)
+frappe.db.commit()
+frappe.clear_cache()
+print("Konnecct website settings OK")
+PY
+```
+
+### C) Git: point the container’s `apps/crm` at your fork (only if histories are compatible)
+
+Inside the container, `apps/crm` may still be a clone of **`frappe/crm`** only. Adding **`origin`** → your **`konnecctPRO`** fork and pulling **`develop`** can fail if the repos do not share history (monorepo vs single-app repo). If `git pull` fails, use **A** or **B** above.
 
 ```bash
 docker compose exec frappe bash -lc 'cd ~/frappe-bench/apps/crm && git remote -v'
-```
-
-Point `origin` at **your** Konnecct fork if needed, then pull and migrate:
-
-```bash
-docker compose exec frappe bash -lc 'cd ~/frappe-bench/apps/crm && git fetch origin && git checkout develop && git pull origin develop'
+docker compose exec frappe bash -lc 'cd ~/frappe-bench/apps/crm && git remote add origin https://github.com/davmiller90210-cmyk/konnecctPRO.git 2>/dev/null; git fetch origin && git checkout develop && git pull origin develop'
 docker compose exec frappe bash -lc 'cd ~/frappe-bench && bench --site app.konnecct.com migrate && bench --site app.konnecct.com clear-cache && bench restart'
-docker compose exec frappe bash -lc 'cd ~/frappe-bench && bench --site app.konnecct.com execute crm.konnecct_portal.apply_website_portal_settings && bench --site app.konnecct.com clear-cache'
 ```
 
 (Replace `app.konnecct.com` with your `SITE_NAME` from `.env` if different.)
