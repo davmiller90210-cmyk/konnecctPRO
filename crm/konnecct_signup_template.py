@@ -1,8 +1,10 @@
 # Copyright (c) Konnecct
-"""Return absolute path to Konnecct signup HTML (see `signup_form_template` hook in hooks.py)."""
+"""Return Jinja template path for Konnecct signup HTML (see `signup_form_template` in hooks.py).
 
-import frappe
+Must be a loader-relative path like ``crm/templates/signup.html``.
+An absolute path from ``get_app_path`` breaks ``frappe.get_template`` (TemplateNotFound).
+"""
 
 
 def get_signup_form_path() -> str:
-	return frappe.get_app_path("crm", "templates", "signup.html")
+	return "crm/templates/signup.html"
