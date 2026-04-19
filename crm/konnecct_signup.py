@@ -80,24 +80,26 @@ def sign_up(
 		new_password_value = random_string(32)
 		must_set_flag = 1
 
-	user = frappe.get_doc(
-		{
-			"doctype": "User",
-			"email": email,
-			"first_name": escape_html(full_name),
-			"enabled": 1,
-			"new_password": new_password_value,
-			"user_type": "System User",
-			"send_welcome_email": 0,
-		}
-	)
+	user_data: dict = {
+		"doctype": "User",
+		"email": email,
+		"first_name": escape_html(full_name),
+		"enabled": 1,
+		"new_password": new_password_value,
+		"user_type": "System User",
+		"send_welcome_email": 0,
+	}
+	# Set on the new doc before insert — do not use db.set_value here; it bumps ``modified``
+	# in the DB while this doc is still in memory and the following ``save()`` raises
+	# TimestampMismatchError ("Document has been modified after you have opened it").
+	if frappe.db.has_column("User", "konnecct_must_set_password"):
+		user_data["konnecct_must_set_password"] = must_set_flag
+
+	user = frappe.get_doc(user_data)
 	user.flags.ignore_permissions = True
 	user.flags.ignore_password_policy = bool(must_set_flag)
 	user.flags.no_welcome_mail = True
 	user.insert()
-
-	if frappe.db.has_column("User", "konnecct_must_set_password"):
-		frappe.db.set_value("User", user.name, "konnecct_must_set_password", must_set_flag)
 
 	user.append_roles("Sales User")
 	_restrict_modules_to_fcrm(user)
