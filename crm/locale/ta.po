@@ -5427,7 +5427,7 @@ msgid "Setting up"
 msgstr ""
 
 #: frontend/src/components/Settings/emailConfig.js:145
-msgid "Setting up Frappe Mail requires you to have an API key and API Secret of your email account. Read more "
+msgid "Hosted mail setup requires an API key and API secret for your email account. Read more "
 msgstr ""
 
 #: frontend/src/components/Settings/emailConfig.js:97

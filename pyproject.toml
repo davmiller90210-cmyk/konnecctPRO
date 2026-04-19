@@ -73,5 +73,5 @@ docstring-code-format = true
 
 [project.urls]
 Homepage = "https://konnecct.com"
-Repository = "https://github.com/frappe/crm.git"
-"Bug Reports" = "https://github.com/frappe/crm/issues"
+Repository = "https://github.com/davmiller90210-cmyk/konnecctPRO.git"
+"Bug Reports" = "https://github.com/davmiller90210-cmyk/konnecctPRO/issues"

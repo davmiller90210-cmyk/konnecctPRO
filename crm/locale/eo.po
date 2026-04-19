@@ -3402,7 +3402,7 @@ msgid "Konnecct mobile"
 msgstr "crwdns156384:0crwdne156384:0"
 
 #: frontend/src/components/Settings/emailConfig.js:81
-msgid "Frappe Mail Site"
+msgid "Mail site URL"
 msgstr "crwdns196432:0crwdne196432:0"
 
 #. Option for the 'Weekly Off' (Select) field in DocType 'CRM Holiday List'
@@ -6473,7 +6473,7 @@ msgid "Setting enabled successfully"
 msgstr "crwdns199346:0crwdne199346:0"
 
 #: frontend/src/components/Settings/emailConfig.js:158
-msgid "Setting up Frappe Mail requires you to have an API key and API Secret of your email account. Read more"
+msgid "Hosted mail setup requires an API key and API secret for your email account. Read more"
 msgstr "crwdns196806:0crwdne196806:0"
 
 #: frontend/src/components/Settings/emailConfig.js:104

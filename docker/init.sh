@@ -48,7 +48,8 @@ bench set-redis-socketio-host redis://redis:6379
 sed -i '/redis/d' ./Procfile
 sed -i '/watch/d' ./Procfile
 
-bench get-app crm --branch main
+# Konnecct product fork (replace URL if your remote differs)
+bench get-app https://github.com/davmiller90210-cmyk/konnecctPRO.git --branch develop
 
 bench new-site "${SITE_NAME}" \
 	--force \

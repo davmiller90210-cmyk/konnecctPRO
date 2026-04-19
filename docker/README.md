@@ -16,6 +16,8 @@ docker compose up -d
 
 Default login (from `init.sh`): **Administrator** / **admin** (change after first login).
 
+First-time `init.sh` installs the **Konnecct** app from this repository’s GitHub fork (`develop`), not the default upstream `crm` marketplace app — see `bench get-app` in [init.sh](init.sh).
+
 ## Environment variables
 
 | Variable    | Purpose |

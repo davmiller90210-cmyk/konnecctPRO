@@ -39,6 +39,15 @@ MSGID_REPLACEMENTS: list[tuple[str, str]] = [
 	("You do not have permission to access Frappe CRM", "You do not have permission to access Konnecct"),
 	("GitHub Repository", "Source code"),
 	("Frappe CRM", "Konnecct"),
+	("Frappe Mail Site", "Mail site URL"),
+	(
+		"Setting up Frappe Mail requires you to have an API key and API Secret of your email account. Read more",
+		"Hosted mail setup requires an API key and API secret for your email account. Read more",
+	),
+	(
+		"© Konnecct. Based on the open-source Frappe CRM project.",
+		"© Konnecct. Includes code derived from the open-source Frappe CRM project.",
+	),
 ]
 
 COMMENT_REPLACEMENTS: list[tuple[str, str]] = [

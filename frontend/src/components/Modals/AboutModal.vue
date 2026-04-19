@@ -29,7 +29,11 @@
         </div>
         <hr class="border-t my-3 mx-2" />
         <p class="text-sm text-ink-gray-6 px-2 mt-2">
-          © Konnecct. Based on the open-source Frappe CRM project.
+          {{
+            __(
+              '© Konnecct. Includes code derived from the open-source Frappe CRM project.',
+            )
+          }}
         </p>
       </div>
     </template>

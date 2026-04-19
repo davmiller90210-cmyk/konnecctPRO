@@ -94,6 +94,40 @@ This app is compatible with the following versions of Frappe and ERPNext:
 
 ## Getting Started (Production)
 
+### Production on your own VM (e.g. Google Cloud)
+
+Your fork clone and the running Frappe site are **two different directories**:
+
+| Location | What it is |
+|----------|------------|
+| `~/konnecctPRO` (or similar) | Git clone of this repository — edit here, commit, push. |
+| `~/frappe-bench` (or `bench`’s install path) | Where **`bench`** lives. The app that Frappe actually loads is **`apps/crm`**. |
+
+**Why branding or hooks “don’t apply”:** the server must be running **this** codebase under `frappe-bench/apps/crm` (your fork’s remote and branch, e.g. `develop`), not the default upstream app from `bench get-app crm` without substituting your fork.
+
+**One-time check** (run on the VM; use your real bench path if different):
+
+```bash
+cd ~/frappe-bench/apps/crm
+git remote -v
+git branch --show-current
+git log -1 --oneline
+```
+
+You should see **your** GitHub fork as `origin` and commits that match this repo (e.g. Website Settings / portal branding changes in `crm/install.py`).
+
+**Deploy updates** (from `~/frappe-bench`, after `git pull` in `apps/crm`):
+
+```bash
+bench --site your.site.domain migrate
+bench --site your.site.domain clear-cache
+bench restart   # if you use supervisor for workers/web
+```
+
+Replace `your.site.domain` with your site name (often the same as the public hostname, e.g. `app.konnecct.com`). You can confirm it with `cat sites/currentsite.txt` or `bench use`.
+
+The optional **[docker/](docker/)** Compose setup in this repo is **only** for container-based installs; you do **not** need `cd konnecctPRO/docker` if you use a normal bench on the VM.
+
 ### Managed Hosting
 
 Get started with your personal or business site with a few clicks on Frappe Cloud - our official hosting service.
@@ -141,9 +175,9 @@ The script will set up a production-ready instance of Konnecct with all the nece
 
 1. [Setup Bench](https://docs.frappe.io/framework/user/en/installation).
 1. In the frappe-bench directory, run `bench start` and keep it running.
-1. Open a new terminal session and cd into `frappe-bench` directory and run following commands:
+1. Open a new terminal session and cd into `frappe-bench` directory and run following commands (use **your fork** so you get Konnecct branding and hooks, not only upstream CRM):
     ```sh
-    $ bench get-app crm
+    $ bench get-app https://github.com/davmiller90210-cmyk/konnecctPRO.git --branch develop
     $ bench new-site sitename.localhost --install-app crm
     $ bench browse sitename.localhost --user Administrator
     ```

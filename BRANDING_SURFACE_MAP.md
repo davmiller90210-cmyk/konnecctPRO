@@ -6,15 +6,15 @@ This file lists **where the product name, logos, external links, and related met
 
 | Surface | Location | Notes |
 |---------|----------|--------|
-| **Frappe login page** | Frappe Framework core + site **Website Settings** / theme | The CRM SPA is loaded at `/crm` after a session exists. Standard login UI and its branding are **not** defined in this app alone. |
-| **Permission denied (server)** | `crm/www/crm.py` | Throws translated error mentioning “Frappe CRM” if `check_app_permission()` fails. |
-| **Permission denied (SPA)** | `frontend/src/pages/NotPermitted.vue` | User-facing string references “Frappe CRM”. |
+| **Website login (`/#login`)** | Frappe website stack + **Website Settings** (DB) | Copy and logo are driven by `app_name`, `brand_html`, etc. Konnecct sets these in `crm/install.py` (`apply_website_portal_settings`) on install/migrate. |
+| **Permission denied (server)** | `crm/www/crm.py` | Uses Konnecct in the permission error string. |
+| **Permission denied (SPA)** | `frontend/src/pages/NotPermitted.vue` | Konnecct copy. |
 
 ## Browser chrome, PWA, and public metadata
 
 | Surface | File(s) |
 |---------|---------|
-| **Document title** | `frontend/index.html` (`<title>Frappe CRM</title>`) |
+| **Document title** | `frontend/index.html` (`<title>Konnecct</title>`) |
 | **Apple web app title** | `frontend/index.html` (`apple-mobile-web-app-title`) |
 | **Favicon / touch icon / splash screens** | `frontend/index.html` — links under `/assets/crm/manifest/` (many `apple-touch-startup-image` entries) |
 | **Web app manifest (PWA)** | `frontend/vite.config.js` — `VitePWA` block: `name`, `short_name`, `description`, `start_url: '/crm'`, icon paths under `/assets/crm/manifest/` |
@@ -28,8 +28,8 @@ This file lists **where the product name, logos, external links, and related met
 | **App title, publisher, description, license, email** | `crm/hooks.py` | `app_title`, `app_publisher`, `app_description`, `app_email`, `app_license`, `app_icon_url`, `app_icon_title`, `app_icon_route` |
 | **Desk “Apps” tile** | `crm/hooks.py` | `add_to_apps_screen`: `name`, `logo`, `title`, `route`, `has_permission` |
 | **Python package display title** | `crm/__init__.py` | `__title__` |
-| **Desk workspace name** | `crm/fcrm/workspace/frappe_crm/frappe_crm.json` | `label`, `name`, `title` (and `owner` email — organizational metadata, not user-visible branding everywhere) |
-| **Standard navbar dropdown** | `crm/hooks.py` | `standard_dropdown_items` includes e.g. “Login to Frappe Cloud”, “About”, “Log out” |
+| **Desk workspace name** | `crm/fcrm/workspace/frappe_crm/frappe_crm.json` | `name` / `label` / `title` → Konnecct; existing sites: patch `rename_frappe_crm_workspace_to_konnecct` |
+| **Standard navbar dropdown** | `crm/hooks.py` | `standard_dropdown_items` includes “Login to hosting dashboard”, “About”, “Log out” |
 
 ## Logos and imagery
 
@@ -44,25 +44,22 @@ This file lists **where the product name, logos, external links, and related met
 
 | Surface | File | What to update |
 |---------|------|----------------|
-| **Help modal docs URL** | `frontend/src/components/Layouts/AppSidebar.vue` | `docsLink="https://docs.frappe.io/crm"` |
-| **Mobile bookmark title** | `frontend/src/components/Layouts/AppSidebar.vue` | `__('Frappe CRM mobile')` |
-| **About dialog: product name** | `frontend/src/components/Modals/AboutModal.vue` | Heading “Frappe CRM” |
-| **About dialog: copyright** | `frontend/src/components/Modals/AboutModal.vue` | “© Frappe Technologies Pvt. Ltd. and contributors” |
-| **About dialog: links** | `frontend/src/components/Modals/AboutModal.vue` | Website, GitHub repo, docs, issues, support (`support.frappe.io`) |
-| **ERPNext integration copy** | `frontend/src/components/Settings/ERPNextSettings.vue` | Docs link `docs.frappe.io/crm/erpnext`; translated string “Connect ERPNext to Frappe CRM” |
-| **Assignment rules docs** | `frontend/src/components/Settings/AssignmentRules/AssignmentRuleView.vue` | `https://docs.frappe.io/crm/assignment-rule` |
-| **Email settings label** | `frontend/src/components/Settings/emailConfig.js` | “Frappe Mail Site” field label (Frappe Mail product reference) |
-| **Frappe Cloud login UX** | `frontend/src/composables/frappecloud.js`, `frontend/src/components/UserDropdown.vue` | Copy “Login to Frappe Cloud”, API host `frappecloud.com` |
+| **Help modal docs URL** | `frontend/src/components/Layouts/AppSidebar.vue` | `docsLink="https://konnecct.com/docs"` |
+| **Mobile bookmark title** | `frontend/src/components/Layouts/AppSidebar.vue` | `__('Konnecct mobile')` |
+| **About dialog** | `frontend/src/components/Modals/AboutModal.vue` | Product name Konnecct; links to konnecct.com; attribution mentions upstream Frappe CRM |
+| **ERPNext integration copy** | `frontend/src/components/Settings/ERPNextSettings.vue` | “Connect ERPNext to Konnecct” |
+| **Assignment rules docs** | `frontend/src/components/Settings/AssignmentRules/AssignmentRuleView.vue` | `https://konnecct.com/docs/assignment-rule` |
+| **Email settings (hosted mail)** | `frontend/src/components/Settings/emailConfig.js` | UI labels “Mail site URL” / hosted mail copy; **service** value sent to the server remains `Frappe Mail` where the framework expects it |
+| **Hosting dashboard** | `frontend/src/composables/frappecloud.js` | “Open hosting dashboard?” (provider URL from site info) |
 
 ## Backend strings and email
 
 | Surface | File |
 |---------|------|
-| **Invitation email subject / template args** | `crm/fcrm/doctype/crm_invitation/crm_invitation.py` — `title = "Frappe CRM"` |
-| **Invitation email body** | `crm/templates/emails/crm_invitation.html` — “invited to join Frappe CRM” |
-| **Generic registration email** | `crm/templates/emails/helpdesk_invitation.html` — Frappe-style welcome; no hard-coded “Frappe CRM” in the snippet audited |
-| **Twilio resource naming** | `crm/fcrm/doctype/crm_twilio_settings/crm_twilio_settings.py` — `friendly_resource_name = "Frappe CRM"` |
-| **DocType field: documentation URL** | `crm/fcrm/doctype/crm_form_script/crm_form_script.json` — `documentation_url` → `docs.frappe.io/crm/custom-actions` |
+| **Invitation email subject / template args** | `crm/fcrm/doctype/crm_invitation/crm_invitation.py` | `title` → Konnecct |
+| **Invitation email body** | `crm/templates/emails/crm_invitation.html` | Konnecct |
+| **Twilio resource naming** | `crm/fcrm/doctype/crm_twilio_settings/crm_twilio_settings.py` | `friendly_resource_name` → Konnecct |
+| **DocType field: documentation URL** | `crm/fcrm/doctype/crm_form_script/crm_form_script.json` | `documentation_url` → `https://konnecct.com/docs/custom-actions` |
 
 ## Telemetry and analytics (non-visual)
 

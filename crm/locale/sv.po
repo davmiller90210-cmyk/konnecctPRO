@@ -3402,8 +3402,8 @@ msgid "Konnecct mobile"
 msgstr "Mobil App"
 
 #: frontend/src/components/Settings/emailConfig.js:81
-msgid "Frappe Mail Site"
-msgstr "Frappe Mail Site"
+msgid "Mail site URL"
+msgstr "Mail site URL"
 
 #. Option for the 'Weekly Off' (Select) field in DocType 'CRM Holiday List'
 #. Option for the 'Workday' (Select) field in DocType 'CRM Service Day'
@@ -6473,7 +6473,7 @@ msgid "Setting enabled successfully"
 msgstr "Inställning aktiverad"
 
 #: frontend/src/components/Settings/emailConfig.js:158
-msgid "Setting up Frappe Mail requires you to have an API key and API Secret of your email account. Read more"
+msgid "Hosted mail setup requires an API key and API secret for your email account. Read more"
 msgstr "För att konfigurera Frappe Mail erfordras API Nyckel och API Hemlighet för e-postkonto. Läs mer om Frappe Mail"
 
 #: frontend/src/components/Settings/emailConfig.js:104

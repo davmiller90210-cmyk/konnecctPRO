@@ -5,13 +5,13 @@
 	"description": "Konnecct — all-in-one CRM and workspace experience.",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/frappe/crm.git"
+		"url": "git+https://github.com/davmiller90210-cmyk/konnecctPRO.git"
 	},
 	"homepage": "https://konnecct.com",
 	"author": "Konnecct",
 	"license": "GPL-3.0",
 	"bugs": {
-		"url": "https://github.com/frappe/crm/issues"
+		"url": "https://github.com/davmiller90210-cmyk/konnecctPRO/issues"
 	},
 	"scripts": {
 		"postinstall": "cd frontend && yarn install --check-files",
