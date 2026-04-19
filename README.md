@@ -86,7 +86,7 @@ We want a single product surface that feels cohesive for sales and operations te
 
 ### Workspace tenancy (MVP)
 
-Leads and deals carry a **Konnecct Workspace** link. Users only see rows for workspaces where they are the workspace **owner** or a row in the workspace **members** child table. Each workspace is a separate bucket of leads and deals; another team’s workspace is not the same data as yours unless you are also a member there. **Administrator** and **System Manager** bypass workspace scoping and see everything. Other CRM objects (tasks, contacts, organizations, and so on) are **not** workspace-scoped in this MVP; they remain shared as in upstream Frappe CRM.
+Leads and deals carry a **Konnecct Workspace** link (the workspace DocType uses **`workspace_owner`** and member **`member_user`**, not the reserved Frappe field names `owner` / `user`). Users only see rows for workspaces where they are the workspace **owner** or a row in the workspace **members** child table. Each workspace is a separate bucket of leads and deals; another team’s workspace is not the same data as yours unless you are also a member there. **Administrator** and **System Manager** bypass workspace scoping and see everything. Other CRM objects (tasks, contacts, organizations, and so on) are **not** workspace-scoped in this MVP; they remain shared as in upstream Frappe CRM.
 
 Migrate patch `crm.patches.v1_0.grant_konnecct_app_owner` assigns full app roles to the designated owner email in that patch file (edit the constant if you fork the repo).
 

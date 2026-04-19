@@ -29,7 +29,7 @@ def _get_or_create_migration_workspace() -> str:
 		{
 			"doctype": "Konnecct Workspace",
 			"title": MIGRATION_WORKSPACE_TITLE,
-			"owner": "Administrator",
+			"workspace_owner": "Administrator",
 			"members": [],
 		}
 	)
@@ -59,15 +59,15 @@ def _crm_role_user_names() -> list[str]:
 
 def _add_crm_role_members(ws_name: str) -> None:
 	ws = frappe.get_doc("Konnecct Workspace", ws_name)
-	existing = {m.user for m in ws.members}
+	existing = {m.member_user for m in ws.members}
 	changed = False
 	for user in _crm_role_user_names():
 		if user not in existing:
 			ws.append(
 				"members",
 				{
-					"user": user,
-					"is_workspace_admin": 1 if user == ws.owner else 0,
+					"member_user": user,
+					"is_workspace_admin": 1 if user == ws.workspace_owner else 0,
 				},
 			)
 			existing.add(user)

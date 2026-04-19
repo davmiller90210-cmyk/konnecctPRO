@@ -1,7 +1,7 @@
 # Copyright (c) Konnecct
 """Row-level workspace tenancy for CRM Lead / CRM Deal (MVP).
 
-Workspace membership is stored on **Konnecct Workspace** (owner + child **Konnecct Workspace Member**).
+Workspace membership uses **workspace_owner** (Link User) and child **Konnecct Workspace Member.member_user** — not the reserved names ``owner`` / ``user``.
 The current workspace for UI defaults is ``frappe.defaults`` key ``konnecct_workspace``.
 """
 
@@ -28,10 +28,10 @@ def get_user_workspace_names(user: str | None = None) -> list[str]:
 		return []
 
 	names: set[str] = set()
-	names.update(frappe.get_all("Konnecct Workspace", filters={"owner": user}, pluck="name") or [])
+	names.update(frappe.get_all("Konnecct Workspace", filters={"workspace_owner": user}, pluck="name") or [])
 	for (parent,) in (
 		frappe.db.sql(
-			"SELECT `parent` FROM `tabKonnecct Workspace Member` WHERE `user`=%s",
+			"SELECT `parent` FROM `tabKonnecct Workspace Member` WHERE `member_user`=%s",
 			user,
 		)
 		or []
@@ -70,8 +70,8 @@ def create_workspace_for_user(user_name: str, title: str | None = None) -> str:
 		{
 			"doctype": "Konnecct Workspace",
 			"title": title,
-			"owner": user_name,
-			"members": [{"user": user_name, "is_workspace_admin": 1}],
+			"workspace_owner": user_name,
+			"members": [{"member_user": user_name, "is_workspace_admin": 1}],
 		}
 	)
 	ws.flags.ignore_permissions = True
@@ -125,12 +125,12 @@ def _user_sql_literal(user: str) -> str:
 
 def _lead_workspace_match_sql(user: str) -> str:
 	u = _user_sql_literal(user)
-	return f"""(`tabCRM Lead`.`konnecct_workspace` IS NOT NULL AND (`tabCRM Lead`.`konnecct_workspace` IN (SELECT `parent` FROM `tabKonnecct Workspace Member` WHERE `user` = {u}) OR `tabCRM Lead`.`konnecct_workspace` IN (SELECT `name` FROM `tabKonnecct Workspace` WHERE `owner` = {u})))"""
+	return f"""(`tabCRM Lead`.`konnecct_workspace` IS NOT NULL AND (`tabCRM Lead`.`konnecct_workspace` IN (SELECT `parent` FROM `tabKonnecct Workspace Member` WHERE `member_user` = {u}) OR `tabCRM Lead`.`konnecct_workspace` IN (SELECT `name` FROM `tabKonnecct Workspace` WHERE `workspace_owner` = {u})))"""
 
 
 def _deal_workspace_match_sql(user: str) -> str:
 	u = _user_sql_literal(user)
-	return f"""(`tabCRM Deal`.`konnecct_workspace` IS NOT NULL AND (`tabCRM Deal`.`konnecct_workspace` IN (SELECT `parent` FROM `tabKonnecct Workspace Member` WHERE `user` = {u}) OR `tabCRM Deal`.`konnecct_workspace` IN (SELECT `name` FROM `tabKonnecct Workspace` WHERE `owner` = {u})))"""
+	return f"""(`tabCRM Deal`.`konnecct_workspace` IS NOT NULL AND (`tabCRM Deal`.`konnecct_workspace` IN (SELECT `parent` FROM `tabKonnecct Workspace Member` WHERE `member_user` = {u}) OR `tabCRM Deal`.`konnecct_workspace` IN (SELECT `name` FROM `tabKonnecct Workspace` WHERE `workspace_owner` = {u})))"""
 
 
 def get_lead_permission_query_conditions(user: str) -> str:
@@ -149,7 +149,7 @@ def get_workspace_permission_query_conditions(user: str) -> str:
 	if _bypasses_workspace_tenancy(user):
 		return ""
 	u = _user_sql_literal(user)
-	return f"""(`tabKonnecct Workspace`.`owner` = {u} OR `tabKonnecct Workspace`.`name` IN (SELECT `parent` FROM `tabKonnecct Workspace Member` WHERE `user` = {u}))"""
+	return f"""(`tabKonnecct Workspace`.`workspace_owner` = {u} OR `tabKonnecct Workspace`.`name` IN (SELECT `parent` FROM `tabKonnecct Workspace Member` WHERE `member_user` = {u}))"""
 
 
 def has_lead_permission(doc, ptype=None, user=None, perm_type=None, permtype=None, **kwargs) -> bool | None:
@@ -180,10 +180,10 @@ def has_workspace_doc_permission(doc, _ptype=None, user=None, _perm_type=None, _
 	user = user or frappe.session.user
 	if _bypasses_workspace_tenancy(user):
 		return True
-	if doc.owner == user:
+	if doc.get("workspace_owner") == user:
 		return True
 	for row in doc.get("members") or []:
-		if row.user == user:
+		if row.get("member_user") == user:
 			return True
 	return False
 

@@ -6,12 +6,12 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "user",
+  "member_user",
   "is_workspace_admin"
  ],
  "fields": [
   {
-   "fieldname": "user",
+   "fieldname": "member_user",
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "User",
