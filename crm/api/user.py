@@ -5,20 +5,70 @@ from frappe.rate_limiter import rate_limit
 from frappe.utils.password import check_password, update_password
 
 
+def validate_new_password_strength(new_password: str) -> None:
+	"""Raise if password fails system password policy (same checks as Desk)."""
+	from frappe.core.doctype.user.user import test_password_strength
+
+	if not new_password:
+		frappe.throw(_("Password is required"))
+
+	result = test_password_strength(new_password)
+	feedback = result.get("feedback", {})
+	if not feedback.get("password_policy_validation_passed", False):
+		suggestions = feedback.get("suggestions", [])
+		frappe.throw(_("Password is too weak. {0}").format(" ".join(suggestions) if suggestions else ""))
+
+
+@frappe.whitelist()
+def password_setup_status() -> dict:
+	"""Used by CRM UI when the user must set a password (legacy signup without chosen password)."""
+	user = frappe.session.user
+	if user == "Guest":
+		return {"needs_initial_password": False}
+	if not frappe.db.has_column("User", "konnecct_must_set_password"):
+		return {"needs_initial_password": False}
+	return {
+		"needs_initial_password": bool(
+			frappe.utils.cint(frappe.db.get_value("User", user, "konnecct_must_set_password"))
+		)
+	}
+
+
 @frappe.whitelist()
 @rate_limit(limit=5, seconds=300)  # 5 attempts per 5 minutes per user/IP
-def change_password(old_password: str, new_password: str):
+def change_password(old_password: str | None = None, new_password: str | None = None):
 	"""
 	Change password for the current logged-in user.
-	Uses Frappe's LoginAttemptTracker for attempt counting/lockout, and rate_limit for API abuse protection.
+	If ``konnecct_must_set_password`` is set (user never chose a password), ``old_password`` is not required.
 	"""
 	user = frappe.session.user
 	if user == "Guest":
 		frappe.throw(_("You must be logged in to change your password"), frappe.AuthenticationError)
 
+	old_password = (old_password or "").strip()
+	new_password = new_password or ""
+
+	must_set_initial = False
+	if frappe.db.has_column("User", "konnecct_must_set_password"):
+		must_set_initial = bool(
+			frappe.utils.cint(frappe.db.get_value("User", user, "konnecct_must_set_password"))
+		)
+
 	tracker = LoginAttemptTracker(user)
 	if not tracker.is_user_allowed():
 		frappe.throw(_("Too many failed attempts. Please try again after some time."))
+
+	if must_set_initial:
+		if not new_password:
+			frappe.throw(_("Password is required"))
+		validate_new_password_strength(new_password)
+		update_password(user=user, pwd=new_password, logout_all_sessions=False)
+		frappe.db.set_value("User", user, "konnecct_must_set_password", 0)
+		tracker.add_success_attempt()
+		return _("Password Updated Successfully")
+
+	if not old_password:
+		frappe.throw(_("Current password is required"))
 
 	if old_password == new_password:
 		frappe.throw(
@@ -33,14 +83,7 @@ def change_password(old_password: str, new_password: str):
 	else:
 		tracker.add_success_attempt()
 
-	# Validate new password strength (server-side enforcement)
-	from frappe.core.doctype.user.user import test_password_strength
-
-	result = test_password_strength(new_password)
-	feedback = result.get("feedback", {})
-	if not feedback.get("password_policy_validation_passed", False):
-		suggestions = feedback.get("suggestions", [])
-		frappe.throw(_("Password is too weak. {0}").format(" ".join(suggestions) if suggestions else ""))
+	validate_new_password_strength(new_password)
 
 	update_password(user=user, pwd=new_password, logout_all_sessions=False)
 	return _("Password Updated Successfully")

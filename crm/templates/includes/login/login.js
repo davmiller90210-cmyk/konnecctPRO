@@ -38,6 +38,20 @@ login.bind_events = function () {
 			login.set_status({{ _("Valid email and name required") | tojson }}, 'red');
 			return false;
 		}
+		if ($("#signup_password").length) {
+			var pwd = ($("#signup_password").val() || "");
+			var pwd2 = ($("#signup_confirm_password").val() || "");
+			if (!pwd || pwd.length < 8) {
+				login.set_status({{ _("Password must be at least 8 characters") | tojson }}, 'red');
+				return false;
+			}
+			if (pwd !== pwd2) {
+				login.set_status({{ _("Passwords do not match") | tojson }}, 'red');
+				return false;
+			}
+			args.password = pwd;
+			args.confirm_password = pwd2;
+		}
 		login.call(args);
 		return false;
 	});

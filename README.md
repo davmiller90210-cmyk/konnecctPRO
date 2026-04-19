@@ -142,9 +142,15 @@ git pull origin develop
 bash scripts/sync_konnecct_into_docker_frappe.sh
 ```
 
-That script **`docker cp`**s `hooks.py`, `konnecct_signup.py`, `konnecct_portal.py`, and `install.py` into the `frappe` container, then **`bench clear-cache`** + **`bench restart`**. Set **`SITE_NAME`** if your site is not `app.konnecct.com` (e.g. `SITE_NAME=app.example.com bash scripts/sync_konnecct_into_docker_frappe.sh`).
+That script **`docker cp`**s core Konnecct files (including `hooks.py`, `konnecct_signup.py`, `crm/api/user.py`, login/signup templates, patches) into the `frappe` container, runs **`bench migrate`** (for custom fields such as the first-time password flag), then **`bench clear-cache`** + **`bench restart`**. Set **`SITE_NAME`** if your site is not `app.konnecct.com` (e.g. `SITE_NAME=app.example.com bash scripts/sync_konnecct_into_docker_frappe.sh`).
 
 Until you do this (or bind-mount `apps/crm`), the site keeps using **old code** — for example signup still shows **“Please check your email for verification”** because the **`sign_up` override** is not loaded.
+
+#### Auth, passwords, and roles (Konnecct)
+
+- **Signup** uses a Konnecct signup form with **password + confirm**; users can sign in with email and password after logout. Legacy users created without a chosen password get a **“set password”** flow in CRM (**Settings → Profile → Change Password**) that does not ask for a “current” password until they have set one once.
+- **One site = one shared CRM** (one database). “Organizations” in the app are **customer companies**, not separate SaaS tenants. Isolation for unrelated customers means **separate Frappe sites** (see [MULTITENANCY_NOTES.md](MULTITENANCY_NOTES.md)).
+- **Integrations** (Twilio, WhatsApp, ERPNext linking, lead sync, most system settings in the CRM UI) are **Sales Manager / System Manager** territory. Self-signup assigns **Sales User** so day-to-day reps can use CRM without admin keys; **promote** trusted admins in **Settings → Users** (or Desk) when they should manage integrations.
 
 #### No terminal access to bench? Use Desk (browser)
 

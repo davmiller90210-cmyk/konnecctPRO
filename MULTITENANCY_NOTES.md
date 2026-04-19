@@ -24,6 +24,8 @@ The DocType **CRM Organization** (`crm/fcrm/doctype/crm_organization/`) models a
 
 Do **not** confuse this with a **workspace** in the SaaS sense (a customer’s isolated Konnecct instance).
 
+For **passwords, signup, and which roles can open integration settings**, see the **“Auth, passwords, and roles (Konnecct)”** section in [README.md](README.md).
+
 ### Who can open the CRM app
 
 `crm/api/__init__.py` defines `check_app_permission()`:

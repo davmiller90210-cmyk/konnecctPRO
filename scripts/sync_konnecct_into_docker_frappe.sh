@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Copy Konnecct Python files from this repo into the running Frappe Docker container,
-# then clear-cache + restart — no "git pull" inside apps/crm required.
+# Copy Konnecct files from this repo into the running Frappe Docker container,
+# run migrate (custom fields / patches), then clear-cache + restart.
 #
 # Usage (on your VM, after: cd ~/konnecctPRO && git pull origin develop):
 #   bash scripts/sync_konnecct_into_docker_frappe.sh
@@ -18,6 +18,7 @@ SITE_NAME="${SITE_NAME:-app.konnecct.com}"
 
 DEST_PKG="/home/frappe/frappe-bench/apps/crm/crm"
 DEST_LOGIN_JS="${DEST_PKG}/templates/includes/login/login.js"
+DEST_SIGNUP_HTML="${DEST_PKG}/templates/signup.html"
 
 if [[ ! -d "$COMPOSE_DIR" ]]; then
 	echo "Missing COMPOSE_DIR: $COMPOSE_DIR" >&2
@@ -46,11 +47,30 @@ copy() {
 	echo "OK: $name -> container:$DEST_PKG/$name"
 }
 
+copy_rel() {
+	local rel="$1"
+	local src="$KONNECCT_REPO/crm/$rel"
+	if [[ ! -f "$src" ]]; then
+		echo "Skip (missing on host): $src" >&2
+		return 0
+	fi
+	local dest="${DEST_PKG}/${rel}"
+	docker compose exec frappe bash -lc "mkdir -p $(dirname "${dest}")"
+	docker cp "$src" "${CID}:${dest}"
+	echo "OK: $rel -> container:${dest}"
+}
+
 echo "Using container $CID, site $SITE_NAME"
 copy hooks.py
 copy konnecct_signup.py
+copy konnecct_signup_template.py
 copy konnecct_portal.py
 copy install.py
+copy_rel api/user.py
+copy_rel setup/__init__.py
+copy_rel setup/konnecct_auth_fields.py
+copy_rel patches.txt
+copy_rel patches/v1_0/add_konnecct_user_password_flag.py
 
 LOGIN_SRC="${KONNECCT_REPO}/crm/templates/includes/login/login.js"
 if [[ -f "$LOGIN_SRC" ]]; then
@@ -61,6 +81,15 @@ else
 	echo "Skip (missing on host): $LOGIN_SRC" >&2
 fi
 
-docker compose exec frappe bash -lc "cd ~/frappe-bench && bench --site ${SITE_NAME} clear-cache && bench restart"
+SIGNUP_SRC="${KONNECCT_REPO}/crm/templates/signup.html"
+if [[ -f "$SIGNUP_SRC" ]]; then
+	docker compose exec frappe bash -lc "mkdir -p $(dirname "${DEST_SIGNUP_HTML}")"
+	docker cp "$SIGNUP_SRC" "${CID}:${DEST_SIGNUP_HTML}"
+	echo "OK: signup.html -> container:${DEST_SIGNUP_HTML}"
+else
+	echo "Skip (missing on host): $SIGNUP_SRC" >&2
+fi
 
-echo "Done. Try signup again in a private window."
+docker compose exec frappe bash -lc "cd ~/frappe-bench && bench --site ${SITE_NAME} migrate && bench --site ${SITE_NAME} clear-cache && bench restart"
+
+echo "Done. Rebuild / deploy the CRM frontend if you changed Vue (e.g. bench build --app crm or your CI image)."

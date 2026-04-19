@@ -2,14 +2,19 @@
 """Override Frappe portal sign-up to skip welcome/verification email and sign the user in immediately.
 
 Upstream `sign_up` emails a password-reset link; without outgoing email that step blocks real users.
+Konnecct: require chosen password on the signup form; legacy API without password still gets a random
+password and ``konnecct_must_set_password`` so CRM can offer a first-time set-password flow.
 """
 
 from frappe import _
 from frappe.auth import LoginManager
-from frappe.utils import cint, escape_html, random_string
+from frappe.rate_limiter import rate_limit
+from frappe.utils import cint, escape_html, random_string, cstr
 from frappe.website.utils import is_signup_disabled
 
 import frappe
+
+from crm.api.user import validate_new_password_strength
 
 try:
 	# Frappe v15+ (see frappe/core/doctype/user/user.py sign_up)
@@ -30,7 +35,14 @@ def _restrict_modules_to_fcrm(user) -> None:
 
 
 @frappe.whitelist(allow_guest=True)
-def sign_up(email: str, full_name: str, redirect_to: str) -> tuple[int, str]:
+@rate_limit(limit=25, seconds=60 * 60)  # IP-based limit for anonymous signup
+def sign_up(
+	email: str,
+	full_name: str,
+	redirect_to: str,
+	password: str | None = None,
+	confirm_password: str | None = None,
+) -> tuple[int, str]:
 	if is_signup_disabled():
 		frappe.throw(_("Sign Up is disabled"), title=_("Not Allowed"))
 
@@ -50,22 +62,42 @@ def sign_up(email: str, full_name: str, redirect_to: str) -> tuple[int, str]:
 			http_status_code=429,
 		)
 
+	chosen_password = (password or "").strip()
+	confirm = (confirm_password or "").strip()
+
+	if chosen_password or confirm:
+		if not chosen_password or not confirm:
+			return 0, _("Password and confirmation are required")
+		if chosen_password != confirm:
+			return 0, _("Passwords do not match")
+		try:
+			validate_new_password_strength(chosen_password)
+		except frappe.ValidationError as e:
+			return 0, cstr(e) or _("Password is too weak")
+		new_password_value = chosen_password
+		must_set_flag = 0
+	else:
+		new_password_value = random_string(32)
+		must_set_flag = 1
+
 	user = frappe.get_doc(
 		{
 			"doctype": "User",
 			"email": email,
 			"first_name": escape_html(full_name),
 			"enabled": 1,
-			"new_password": random_string(10),
-			# Same model as CRM Invitation: team members use the /crm app, not only portal /me.
+			"new_password": new_password_value,
 			"user_type": "System User",
 			"send_welcome_email": 0,
 		}
 	)
 	user.flags.ignore_permissions = True
-	user.flags.ignore_password_policy = True
+	user.flags.ignore_password_policy = bool(must_set_flag)
 	user.flags.no_welcome_mail = True
 	user.insert()
+
+	if frappe.db.has_column("User", "konnecct_must_set_password"):
+		frappe.db.set_value("User", user.name, "konnecct_must_set_password", must_set_flag)
 
 	user.append_roles("Sales User")
 	_restrict_modules_to_fcrm(user)
@@ -77,4 +109,6 @@ def sign_up(email: str, full_name: str, redirect_to: str) -> tuple[int, str]:
 	frappe.local.login_manager = LoginManager()
 	frappe.local.login_manager.login_as(user.name)
 
-	return 1, _("Welcome to Konnecct. Set a password anytime under My Account → Reset Password.")
+	if must_set_flag:
+		return 1, _("Welcome to Konnecct. Set a password in CRM under Settings → Profile → Change Password.")
+	return 1, _("Welcome to Konnecct.")

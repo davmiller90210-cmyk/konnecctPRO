@@ -24,6 +24,9 @@ add_to_apps_screen = [
 
 get_site_info = "crm.activation.get_site_info"
 
+# Override Frappe default signup form (add password fields); see `crm/templates/signup.html`.
+signup_form_template = ["crm.konnecct_signup_template.get_signup_form_path"]
+
 export_python_type_annotations = True
 require_type_annotated_api_methods = True
 
@@ -271,6 +274,7 @@ after_migrate = [
 	"crm.fcrm.doctype.fcrm_settings.fcrm_settings.after_migrate",
 	"crm.api.whatsapp.add_roles",
 	"crm.konnecct_portal.apply_website_portal_settings",
+	"crm.setup.konnecct_auth_fields.ensure_konnecct_user_auth_fields",
 ]
 
 standard_dropdown_items = [
