@@ -69,8 +69,17 @@ copy install.py
 copy_rel api/user.py
 copy_rel setup/__init__.py
 copy_rel setup/konnecct_auth_fields.py
+
+# patches.txt lists many modules — copy the whole tree or migrate fails with ModuleNotFoundError.
+PATCHES_HOST="${KONNECCT_REPO}/crm/patches"
+if [[ -d "$PATCHES_HOST" ]]; then
+	docker compose exec frappe bash -lc "rm -rf /home/frappe/frappe-bench/apps/crm/crm/patches"
+	docker cp "$PATCHES_HOST" "${CID}:/home/frappe/frappe-bench/apps/crm/crm/"
+	echo "OK: patches/ -> container:${DEST_PKG}/patches"
+else
+	echo "Skip (missing on host): $PATCHES_HOST" >&2
+fi
 copy_rel patches.txt
-copy_rel patches/v1_0/add_konnecct_user_password_flag.py
 
 LOGIN_SRC="${KONNECCT_REPO}/crm/templates/includes/login/login.js"
 if [[ -f "$LOGIN_SRC" ]]; then
