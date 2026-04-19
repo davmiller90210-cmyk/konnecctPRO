@@ -17,6 +17,7 @@ COMPOSE_DIR="${COMPOSE_DIR:-$HOME/konnecctPRO/docker}"
 SITE_NAME="${SITE_NAME:-app.konnecct.com}"
 
 DEST_PKG="/home/frappe/frappe-bench/apps/crm/crm"
+DEST_LOGIN_JS="${DEST_PKG}/templates/includes/login/login.js"
 
 if [[ ! -d "$COMPOSE_DIR" ]]; then
 	echo "Missing COMPOSE_DIR: $COMPOSE_DIR" >&2
@@ -50,6 +51,15 @@ copy hooks.py
 copy konnecct_signup.py
 copy konnecct_portal.py
 copy install.py
+
+LOGIN_SRC="${KONNECCT_REPO}/crm/templates/includes/login/login.js"
+if [[ -f "$LOGIN_SRC" ]]; then
+	docker compose exec frappe bash -lc "mkdir -p $(dirname "${DEST_LOGIN_JS}")"
+	docker cp "$LOGIN_SRC" "${CID}:${DEST_LOGIN_JS}"
+	echo "OK: login.js -> container:${DEST_LOGIN_JS}"
+else
+	echo "Skip (missing on host): $LOGIN_SRC" >&2
+fi
 
 docker compose exec frappe bash -lc "cd ~/frappe-bench && bench --site ${SITE_NAME} clear-cache && bench restart"
 

@@ -20,7 +20,9 @@ First-time `init.sh` installs the **Konnecct** app from this repository’s GitH
 
 ## Portal signup when outbound email is not configured
 
-Frappe’s default `sign_up` tells users to check email for a registration link. Konnecct overrides that API in [`crm/konnecct_signup.py`](../crm/konnecct_signup.py) (see `override_whitelisted_methods` in [`crm/hooks.py`](../crm/hooks.py)): **no welcome mail**, **immediate login** as a Website User (same rate limits and Portal **default role** as upstream). After deploying this code, run **`bench clear-cache`** or restart so the override loads.
+Frappe’s default `sign_up` tells users to check email for a registration link. Konnecct overrides that API in [`crm/konnecct_signup.py`](../crm/konnecct_signup.py) (see `override_whitelisted_methods` in [`crm/hooks.py`](../crm/hooks.py)): **no welcome mail**, **immediate login**, and the new user is provisioned like a **CRM invitation** (**System User** + **Sales User**, FCRM module only) so they can open **`/crm`** — not only the generic **`/me`** portal profile. A random password is set server-side (same as core); users set a real password via **My Account → Reset Password**. The login template [`crm/templates/includes/login/login.js`](../crm/templates/includes/login/login.js) redirects successful signups to **`/crm`**. After deploying, run **`bench clear-cache`** or restart so changes load.
+
+**Security:** public sign-up with **Sales User** means anyone who can register can use CRM data — fine for a trusted team; disable signups in **Website Settings** if the site is on the open internet.
 
 ## Host vs container (read this once)
 

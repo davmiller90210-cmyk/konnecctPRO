@@ -18,6 +18,17 @@ except ImportError:  # pragma: no cover - older benches
 	from frappe.website.utils import sanitize_redirect
 
 
+def _restrict_modules_to_fcrm(user) -> None:
+	"""Match `CRMInvitation.accept` for Sales User — only the FCRM module is unblocked."""
+	block_modules = frappe.get_all(
+		"Module Def",
+		fields=["name as module"],
+		filters={"name": ["!=", "FCRM"]},
+	)
+	if block_modules:
+		user.set("block_modules", block_modules)
+
+
 @frappe.whitelist(allow_guest=True)
 def sign_up(email: str, full_name: str, redirect_to: str) -> tuple[int, str]:
 	if is_signup_disabled():
@@ -46,7 +57,8 @@ def sign_up(email: str, full_name: str, redirect_to: str) -> tuple[int, str]:
 			"first_name": escape_html(full_name),
 			"enabled": 1,
 			"new_password": random_string(10),
-			"user_type": "Website User",
+			# Same model as CRM Invitation: team members use the /crm app, not only portal /me.
+			"user_type": "System User",
 			"send_welcome_email": 0,
 		}
 	)
@@ -55,14 +67,14 @@ def sign_up(email: str, full_name: str, redirect_to: str) -> tuple[int, str]:
 	user.flags.no_welcome_mail = True
 	user.insert()
 
-	default_role = frappe.get_single_value("Portal Settings", "default_role")
-	if default_role:
-		user.add_roles(default_role)
+	user.append_roles("Sales User")
+	_restrict_modules_to_fcrm(user)
+	user.save(ignore_permissions=True)
 
-	if redirect_to:
-		frappe.cache.hset("redirect_after_login", user.name, sanitize_redirect(redirect_to))
+	target = sanitize_redirect(redirect_to) if redirect_to else "/crm"
+	frappe.cache.hset("redirect_after_login", user.name, target)
 
 	frappe.local.login_manager = LoginManager()
 	frappe.local.login_manager.login_as(user.name)
 
-	return 1, _("You are signed in. Change your password from account settings anytime.")
+	return 1, _("Welcome to Konnecct. Set a password anytime under My Account → Reset Password.")
