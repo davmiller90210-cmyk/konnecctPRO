@@ -44,6 +44,14 @@ Frappe’s default `sign_up` tells users to check email for a registration link.
 
 If `git remote` inside the container shows only **`upstream` → `github.com/frappe/crm`**, the container is still on **upstream CRM**, not your Konnecct fork — so modules like `crm.konnecct_portal` will **not** exist until you copy or replace that code.
 
+**Do not** assume `git pull origin develop` works **inside** `apps/crm` in the container — that clone often has **no `origin` remote** (`fatal: 'origin' does not appear to be a git repository`). After `git pull` on the **host** repo, sync Python + DocTypes into the container with:
+
+```bash
+cd ~/konnecctPRO && git pull origin develop && bash scripts/sync_konnecct_into_docker_frappe.sh
+```
+
+(`SITE_NAME` defaults to `app.konnecct.com`; override with `SITE_NAME=your.site bash scripts/...`.)
+
 ---
 
 ## Fix portal branding / signup (pick one path)

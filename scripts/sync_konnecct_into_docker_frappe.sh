@@ -67,6 +67,7 @@ copy_rel() {
 
 echo "Using container $CID, site $SITE_NAME"
 copy hooks.py
+copy konnecct_workspace.py
 copy konnecct_signup.py
 copy konnecct_signup_template.py
 copy konnecct_portal.py
@@ -94,6 +95,17 @@ else
 	echo "Skip (missing on host): $PATCHES_HOST" >&2
 fi
 copy_rel patches.txt
+
+# All FCRM DocType JSON/Python (workspace tenancy, Lead/Deal fields, etc.). Container `apps/crm`
+# is often not a git clone with `origin` — do not rely on `git pull` inside the container.
+FCRM_DT="${KONNECCT_REPO}/crm/fcrm/doctype"
+if [[ -d "$FCRM_DT" ]]; then
+	compose_root "rm -rf /home/frappe/frappe-bench/apps/crm/crm/fcrm/doctype"
+	docker cp "$FCRM_DT" "${CID}:/home/frappe/frappe-bench/apps/crm/crm/fcrm/"
+	echo "OK: fcrm/doctype/ -> container (full tree)"
+else
+	echo "Skip (missing on host): $FCRM_DT" >&2
+fi
 
 LOGIN_SRC="${KONNECCT_REPO}/crm/templates/includes/login/login.js"
 if [[ -f "$LOGIN_SRC" ]]; then
