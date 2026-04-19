@@ -31,7 +31,15 @@ If `git remote` inside the container shows only **`upstream` → `github.com/fra
 
 ## Fix portal branding / signup (pick one path)
 
-### A) Fastest: copy Konnecct file from your host clone into the container (no Git remote surgery)
+### A) Copy `konnecct_portal.py` from your host clone into the container
+
+**If you see `no such file or directory` for `../crm/konnecct_portal.py`**, your **`~/konnecctPRO` on the server is behind GitHub.** Update it first:
+
+```bash
+cd ~/konnecctPRO
+git pull origin develop
+test -f crm/konnecct_portal.py && echo OK || echo "Still missing — check branch / remote"
+```
 
 From **`~/konnecctPRO/docker`** on the host (adjust site name if needed):
 
