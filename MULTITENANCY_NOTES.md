@@ -26,6 +26,8 @@ Do **not** confuse this with a **workspace** in the SaaS sense (a customer’s i
 
 For **passwords, signup, and which roles can open integration settings**, see the **“Auth, passwords, and roles (Konnecct)”** section in [README.md](README.md).
 
+For a **roadmap outline** to true multi-tenant SaaS (row-level tenancy vs multi-site), see [docs/MULTITENANT_SAAS_OUTLINE.md](docs/MULTITENANT_SAAS_OUTLINE.md).
+
 ### Who can open the CRM app
 
 `crm/api/__init__.py` defines `check_app_permission()`:
