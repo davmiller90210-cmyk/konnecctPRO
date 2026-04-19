@@ -66,7 +66,16 @@ copy konnecct_signup.py
 copy konnecct_signup_template.py
 copy konnecct_portal.py
 copy install.py
-copy_rel api/user.py
+# Full api/ package — hooks reference crm.api.event (scheduler), not only user.py.
+API_HOST="${KONNECCT_REPO}/crm/api"
+if [[ -d "$API_HOST" ]]; then
+	docker compose exec frappe bash -lc "rm -rf /home/frappe/frappe-bench/apps/crm/crm/api"
+	docker cp "$API_HOST" "${CID}:/home/frappe/frappe-bench/apps/crm/crm/"
+	echo "OK: api/ -> container:${DEST_PKG}/api"
+else
+	echo "Skip (missing on host): $API_HOST" >&2
+fi
+
 copy_rel setup/__init__.py
 copy_rel setup/konnecct_auth_fields.py
 

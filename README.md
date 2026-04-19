@@ -142,7 +142,7 @@ git pull origin develop
 bash scripts/sync_konnecct_into_docker_frappe.sh
 ```
 
-That script **`docker cp`**s core Konnecct files (including `hooks.py`, `konnecct_signup.py`, `crm/api/user.py`, login/signup templates, the **entire `crm/patches/` tree**, and `crm/patches.txt`) into the `frappe` container, runs **`bench migrate`** (for custom fields such as the first-time password flag), then **`bench clear-cache`** + **`bench restart`**. Copying only `patches.txt` without the matching `.py` files will break **`bench migrate`** with `ModuleNotFoundError` for patch modules. Set **`SITE_NAME`** if your site is not `app.konnecct.com` (e.g. `SITE_NAME=app.example.com bash scripts/sync_konnecct_into_docker_frappe.sh`).
+That script **`docker cp`**s core Konnecct files (including `hooks.py`, `konnecct_signup.py`, the **entire `crm/api/`** package so scheduler hooks like `crm.api.event` resolve, login/signup templates, the **entire `crm/patches/`** tree, and `crm/patches.txt`) into the `frappe` container, runs **`bench migrate`** (for custom fields such as the first-time password flag), then **`bench clear-cache`** + **`bench restart`**. Copying only `patches.txt` without the matching `.py` files will break **`bench migrate`** with `ModuleNotFoundError` for patch modules. Set **`SITE_NAME`** if your site is not `app.konnecct.com` (e.g. `SITE_NAME=app.example.com bash scripts/sync_konnecct_into_docker_frappe.sh`).
 
 Until you do this (or bind-mount `apps/crm`), the site keeps using **old code** — for example signup still shows **“Please check your email for verification”** because the **`sign_up` override** is not loaded.
 
