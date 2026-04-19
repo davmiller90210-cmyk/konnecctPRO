@@ -132,6 +132,20 @@ If you see **`AttributeError: ... has no attribute 'apply_website_portal_setting
 
 Adjust the `cd` path to your compose folder if it is not `~/konnecctPRO/docker`.
 
+#### Easiest path (Docker): copy Konnecct into the container in one step
+
+You **do not** need SSH access for anyone else. You **do** need the running container to get the same files as `git pull` on the host. After `git pull` in `~/konnecctPRO`, run:
+
+```bash
+cd ~/konnecctPRO
+git pull origin develop
+bash scripts/sync_konnecct_into_docker_frappe.sh
+```
+
+That script **`docker cp`**s `hooks.py`, `konnecct_signup.py`, `konnecct_portal.py`, and `install.py` into the `frappe` container, then **`bench clear-cache`** + **`bench restart`**. Set **`SITE_NAME`** if your site is not `app.konnecct.com` (e.g. `SITE_NAME=app.example.com bash scripts/sync_konnecct_into_docker_frappe.sh`).
+
+Until you do this (or bind-mount `apps/crm`), the site keeps using **old code** — for example signup still shows **“Please check your email for verification”** because the **`sign_up` override** is not loaded.
+
 #### No terminal access to bench? Use Desk (browser)
 
 Log in as **Administrator** → **Website → Website Settings** and set **App Name** to `Konnecct`, uncheck **Disable signups**, uncheck **Hide footer signup**, set **Brand HTML** / logo as needed, then **Save**. That updates the same database fields as `apply_website_portal_settings` without using the `bench` CLI.
