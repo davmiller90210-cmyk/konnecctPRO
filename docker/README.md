@@ -14,7 +14,18 @@ docker compose up -d
 
 4. Open `https://YOUR_DOMAIN/crm` — Caddy will obtain a **free** TLS certificate from **Let’s Encrypt** automatically.
 
-Default login (from `init.sh`): **Administrator** / **admin** (change after first login).
+Login: user **`Administrator`**. The password is:
+
+- **`ADMIN_PASSWORD`** from your `.env` when the bench is **first** created (`init.sh` passes it to `bench new-site`; default is **`admin`** if unset).
+- On a **site that already exists**, changing `.env` does **not** update the user; run from this directory:
+
+  ```bash
+  ./set-admin-password.sh 'YourNewLongRandomPassword'
+  ```
+
+  (Requires Bash — e.g. Git Bash or WSL on Windows. Uses `SITE_NAME` from `.env`.)
+
+**Production:** set a strong `ADMIN_PASSWORD` in `.env` **before** the first `docker compose up`, or run `set-admin-password.sh` after install.
 
 First-time `init.sh` installs the **Konnecct** app from this repository’s GitHub fork (`develop`), not the default upstream `crm` marketplace app — see `bench get-app` in [init.sh](init.sh).
 
@@ -100,6 +111,7 @@ docker compose exec frappe bash -lc 'cd ~/frappe-bench && bench --site app.konne
 |------------|---------|
 | `DOMAIN`   | Hostname served by Caddy; used for TLS (must match DNS). |
 | `SITE_NAME`| Frappe site name — use the **same** value as `DOMAIN` for a public site so the `Host` header matches. |
+| `ADMIN_PASSWORD` | Initial **Administrator** password on **first** bench creation only; use `./set-admin-password.sh` to change later. |
 
 ## Already created the stack with `crm.localhost`?
 

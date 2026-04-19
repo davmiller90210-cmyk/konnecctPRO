@@ -15,6 +15,7 @@ from frappe.website.utils import is_signup_disabled
 import frappe
 
 from crm.api.user import validate_new_password_strength
+from crm.konnecct_workspace import provision_new_user_workspace
 
 try:
 	# Frappe v15+ (see frappe/core/doctype/user/user.py sign_up)
@@ -103,6 +104,12 @@ def sign_up(
 	user.append_roles("Sales User")
 	_restrict_modules_to_fcrm(user)
 	user.insert()
+
+	try:
+		provision_new_user_workspace(user.name)
+	except Exception:
+		# User is already created; login-time `ensure_default_workspace_for_user` will recover.
+		frappe.log_error(title="Konnecct workspace provisioning failed")
 
 	target = sanitize_redirect(redirect_to) if redirect_to else "/crm"
 	frappe.cache.hset("redirect_after_login", user.name, target)

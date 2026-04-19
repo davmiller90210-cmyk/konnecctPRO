@@ -22,6 +22,7 @@ services:
     environment:
       SHELL: /bin/bash
       SITE_NAME: ${SITE_NAME:-crm.localhost}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin}
     working_dir: /home/frappe
     volumes:
       - .:/workspace

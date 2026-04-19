@@ -84,6 +84,14 @@ We want a single product surface that feels cohesive for sales and operations te
 - [Frappe Framework](https://github.com/frappe/frappe): A full-stack web application framework.
 - [Frappe UI](https://github.com/frappe/frappe-ui): A Vue-based UI library, to provide a modern user interface.
 
+### Workspace tenancy (MVP)
+
+Leads and deals carry a **Konnecct Workspace** link. Users only see rows for workspaces where they are the workspace **owner** or a row in the workspace **members** child table. Each workspace is a separate bucket of leads and deals; another team’s workspace is not the same data as yours unless you are also a member there. **Administrator** and **System Manager** bypass workspace scoping and see everything. Other CRM objects (tasks, contacts, organizations, and so on) are **not** workspace-scoped in this MVP; they remain shared as in upstream Frappe CRM.
+
+Migrate patch `crm.patches.v1_0.grant_konnecct_app_owner` assigns full app roles to the designated owner email in that patch file (edit the constant if you fork the repo).
+
+On migrate, patch `crm.patches.v1_0.backfill_konnecct_workspace` creates a workspace titled **Organization** (when none exists yet), adds users who have **Sales User**, **Sales Manager**, or **System Manager** as members, and fills empty lead/deal workspace links. Portal sign-up provisions a personal workspace and sets the user default `konnecct_workspace`. Each login ensures that default still points at a workspace the user belongs to.
+
 ### Compatibility
 This app is compatible with the following versions of Frappe and ERPNext:
 
@@ -290,7 +298,7 @@ cp .env.example .env
 docker compose up -d
 ```
 
-Open **https://YOUR_DOMAIN/crm** — TLS is issued automatically by Caddy. Default login: **Administrator** / **admin**.
+Open **https://YOUR_DOMAIN/crm** — TLS is issued automatically by Caddy. Sign in as **`Administrator`**; set **`ADMIN_PASSWORD`** in `docker/.env` before the first boot, or use **`docker/set-admin-password.sh`** to reset it on an existing site (see [docker/README.md](docker/README.md)).
 
 ## Learn and connect
 

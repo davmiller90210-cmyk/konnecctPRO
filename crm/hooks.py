@@ -131,13 +131,19 @@ before_uninstall = "crm.uninstall.before_uninstall"
 # -----------
 # Permissions evaluated in scripted ways
 
-# permission_query_conditions = {
-# "Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",
-# }
-#
-# has_permission = {
-# "Event": "frappe.desk.doctype.event.event.has_permission",
-# }
+permission_query_conditions = {
+	"CRM Lead": "crm.konnecct_workspace.get_lead_permission_query_conditions",
+	"CRM Deal": "crm.konnecct_workspace.get_deal_permission_query_conditions",
+	"Konnecct Workspace": "crm.konnecct_workspace.get_workspace_permission_query_conditions",
+}
+
+has_permission = {
+	"CRM Lead": "crm.konnecct_workspace.has_lead_permission",
+	"CRM Deal": "crm.konnecct_workspace.has_deal_permission",
+	"Konnecct Workspace": "crm.konnecct_workspace.has_workspace_doc_permission",
+}
+
+on_login = ["crm.konnecct_workspace.on_login"]
 
 # DocType Class
 # ---------------
@@ -173,9 +179,13 @@ doc_events = {
 		"on_update": ["crm.api.whatsapp.on_update"],
 	},
 	"CRM Deal": {
+		"before_insert": ["crm.konnecct_workspace.set_workspace_on_deal"],
 		"on_update": [
 			"crm.fcrm.doctype.erpnext_crm_settings.erpnext_crm_settings.create_customer_in_erpnext"
 		],
+	},
+	"CRM Lead": {
+		"before_insert": ["crm.konnecct_workspace.set_workspace_on_lead"],
 	},
 	"User": {
 		"before_validate": ["crm.api.live_demo.validate_user"],

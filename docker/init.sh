@@ -54,7 +54,7 @@ bench get-app https://github.com/davmiller90210-cmyk/konnecctPRO.git --branch de
 bench new-site "${SITE_NAME}" \
 	--force \
 	--mariadb-root-password 123 \
-	--admin-password admin \
+	--admin-password "${ADMIN_PASSWORD:-admin}" \
 	--no-mariadb-socket
 
 bench --site "${SITE_NAME}" install-app crm

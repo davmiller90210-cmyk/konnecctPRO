@@ -70,7 +70,9 @@
   "facebook_form_id",
   "lost_details_tab",
   "lost_reason",
-  "lost_notes"
+  "lost_notes",
+  "konnecct_workspace_section",
+  "konnecct_workspace"
  ],
  "fields": [
   {
@@ -415,6 +417,19 @@
    "fieldtype": "Text",
    "label": "Lost Notes",
    "mandatory_depends_on": "eval: doc.lost_reason == \"Other\""
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "konnecct_workspace_section",
+   "fieldtype": "Section Break",
+   "label": "Workspace"
+  },
+  {
+   "fieldname": "konnecct_workspace",
+   "fieldtype": "Link",
+   "label": "Workspace",
+   "options": "Konnecct Workspace",
+   "search_index": 1
   },
   {
    "fieldname": "column_break_opsm",

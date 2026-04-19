@@ -11,6 +11,7 @@ from pypika import Criterion
 
 from crm.api.views import get_views
 from crm.fcrm.doctype.crm_form_script.crm_form_script import get_form_script
+from crm.konnecct_workspace import merge_workspace_filter_into_filters
 from crm.utils import get_dynamic_linked_docs, get_linked_docs, is_frappe_version
 
 COUNT_NAME = (
@@ -294,6 +295,8 @@ def get_data(
 	if default_filters:
 		default_filters = frappe.parse_json(default_filters)
 		filters.update(default_filters)
+
+	filters = merge_workspace_filter_into_filters(doctype, filters)
 
 	is_default = True
 	data = []
