@@ -103,6 +103,12 @@ Your fork clone and the running Frappe site are **two different directories**:
 | `~/konnecctPRO` (or similar) | Git clone of this repository — edit here, commit, push. |
 | `~/frappe-bench` (or `bench`’s install path) | Where **`bench`** lives. The app that Frappe actually loads is **`apps/crm`**. |
 
+**Why we mention `~/frappe-bench/apps/crm` and not only `~/konnecctPRO`:**  
+`konnecctPRO` is your **Git repo folder** — use `cd ~/konnecctPRO` to commit and push. That is correct.  
+Separately, when you run a normal Frappe **bench** install, the `crm` app that the **live site executes** lives under **`bench/apps/crm`** (often `~/frappe-bench/apps/crm`). The Python process reads code from **that** tree. If your repo and that folder are **not** the same copy (or a symlink), then `git pull` only in `~/konnecctPRO` does **not** update what the server runs until you also update `apps/crm` (pull there, or symlink, or replace the app).  
+
+**Ignore `docker/`** unless you deliberately run the optional Docker Compose stack; it has nothing to do with `cd konnecctPRO` on a bench-only VM.
+
 **Why branding or hooks “don’t apply”:** the server must be running **this** codebase under `frappe-bench/apps/crm` (your fork’s remote and branch, e.g. `develop`), not the default upstream app from `bench get-app crm` without substituting your fork.
 
 **One-time check** (run on the VM; use your real bench path if different):
