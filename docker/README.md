@@ -18,6 +18,10 @@ Default login (from `init.sh`): **Administrator** / **admin** (change after firs
 
 First-time `init.sh` installs the **Konnecct** app from this repository’s GitHub fork (`develop`), not the default upstream `crm` marketplace app — see `bench get-app` in [init.sh](init.sh).
 
+## Portal signup when outbound email is not configured
+
+Frappe’s default `sign_up` tells users to check email for a registration link. Konnecct overrides that API in [`crm/konnecct_signup.py`](../crm/konnecct_signup.py) (see `override_whitelisted_methods` in [`crm/hooks.py`](../crm/hooks.py)): **no welcome mail**, **immediate login** as a Website User (same rate limits and Portal **default role** as upstream). After deploying this code, run **`bench clear-cache`** or restart so the override loads.
+
 ## Host vs container (read this once)
 
 - On the **host** you have **`~/konnecctPRO`** — your Git repo. There is **no** `~/frappe-bench` on the host unless you installed bench yourself; **that is normal.**
