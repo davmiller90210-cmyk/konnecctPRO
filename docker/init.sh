@@ -27,9 +27,34 @@ PY
 
 cd /home/frappe
 
+# bench CLI re-execs env/bin/python; if the venv is missing (e.g. after a new frappe/bench image),
+# every bench command fails with FileNotFoundError. Rebuild the venv but keep apps/ and sites/.
+repair_bench_venv_if_needed() {
+	local bench_root="${1:-/home/frappe/frappe-bench}"
+	cd "$bench_root"
+	if [ -x "env/bin/python" ]; then
+		return 0
+	fi
+	echo "Virtualenv missing or broken — rebuilding (apps and sites preserved)..."
+	rm -rf env
+	python3 -m venv env
+	./env/bin/pip install --upgrade pip setuptools wheel
+	./env/bin/pip install -e ./apps/frappe
+	shopt -s nullglob
+	for app_dir in apps/*/; do
+		[ "$app_dir" = "apps/frappe/" ] && continue
+		if [ -f "${app_dir}pyproject.toml" ] || [ -f "${app_dir}setup.py" ]; then
+			echo "pip install -e ${app_dir}"
+			./env/bin/pip install -e "$app_dir"
+		fi
+	done
+	shopt -u nullglob
+}
+
 if [ -d "frappe-bench/apps/frappe" ]; then
 	echo "Bench already exists, starting..."
 	cd frappe-bench
+	repair_bench_venv_if_needed "$(pwd)"
 	ensure_gunicorn_listens_all_interfaces "$(pwd)"
 	exec bench start
 fi

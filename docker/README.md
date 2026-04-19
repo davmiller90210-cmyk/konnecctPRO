@@ -138,6 +138,40 @@ Data is in Docker volumes. Either:
 - Ensure **no other process** binds ports 80/443 on the host.
 - Let’s Encrypt must reach your server on **port 80** from the internet for the default HTTP challenge.
 
+## `FileNotFoundError` when running `bench` (e.g. `set-admin-password`)
+
+The `bench` command runs Frappe using **`frappe-bench/env/bin/python`**. If that file is missing (common after **`docker compose pull`** upgraded the `frappe/bench` image, or a half-finished first boot), you see:
+
+`FileNotFoundError: [Errno 2] No such file or directory` inside `bench/cli.py` → `os.execv(...)`.
+
+**Fix (pick one):**
+
+1. **Restart the Frappe container** after `git pull` so [init.sh](init.sh) runs again — it now **rebuilds the virtualenv** when `apps/frappe` exists but `env/bin/python` does not (your DB and site files stay in MariaDB / the bench tree).
+
+   ```bash
+   cd ~/konnecctPRO/docker
+   git pull
+   docker compose up -d --force-recreate frappe
+   docker compose logs -f frappe
+   ```
+
+   Wait until logs show Gunicorn/workers running, then retry your `bench` command.
+
+2. **One-shot repair** (if you cannot restart yet):
+
+   ```bash
+   cd ~/konnecctPRO/docker
+   docker compose exec frappe bash -lc 'cd /home/frappe/frappe-bench && rm -rf env && python3 -m venv env && ./env/bin/pip install --upgrade pip setuptools wheel && ./env/bin/pip install -e ./apps/frappe && for d in apps/*/; do [ "$d" = "apps/frappe/" ] && continue; [ -f "${d}pyproject.toml" ] || [ -f "${d}setup.py" ] || continue; ./env/bin/pip install -e "$d"; done'
+   ```
+
+Then, for example:
+
+```bash
+docker compose exec frappe bash -lc 'cd /home/frappe/frappe-bench && bench --site "${SITE_NAME:-app.konnecct.com}" set-admin-password '\''your-password-here'\'''
+```
+
+(Replace site name and password; or `source` your `.env` first.)
+
 ## 502 Bad Gateway from Caddy (`connection refused` to :8000)
 
 Frappe’s Gunicorn defaults to **127.0.0.1:8000** inside the container, so **Caddy cannot connect** from another container. `init.sh` sets `bind_address` to **0.0.0.0** in `sites/common_site_config.json`.
